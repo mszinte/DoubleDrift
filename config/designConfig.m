@@ -73,10 +73,10 @@ for rep = 1:const.nb_repeat
 end
 trialMat = trialMat(randperm(const.nb_trials),:);
 
-for t_trial = 1:expDes.nb_trials
+for t_trial = 1:const.nb_trials
     randVal1 = randperm(numel(expDes.oneR));     
     rand_rand1 = expDes.oneR(randVal1(1));
-    trialMat(ii, 3) = rand_rand1;
+    trialMat(t_trial, 3) = rand_rand1;
 end
 
 expDes.expMat = [zeros(const.nb_trials,2)*nan, ...

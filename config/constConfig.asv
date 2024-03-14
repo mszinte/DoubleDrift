@@ -34,22 +34,19 @@ const.gabor_pathVal = 3;                                                    % ga
 const.gabor_path = vaDeg2pix(const.gabor_pathVal, scr);                     % gabor path size in pixels
 const.ext_motion_speedVal = 2;                                              % external motion speed in dva/sec
 const.ext_motion_speed = vaDeg2pix(const.ext_motion_speedVal, scr);         % external motion speed in pix/sec
+
 const.ext_motion_steps = round((const.gabor_pathVal / ...
     const.ext_motion_speedVal) / scr.frame_duration);
 const.int_motion_freq = 3;                                                  % internal motion temporal frequency in Hz
-const.gaborSizeVal = 2.0;                                                   % full gabor diameter in dva
-[const.gaborSize, ~] = vaDeg2pix(const.gaborSizeVal, scr);                  % full gabor diameter in pixels
-const.gaborFrequency = 2;                                                   % gabor spatial frequency in cycles per dva
-const.gaborPixPerPeriod = const.ppd/const.gaborFrequency;                   % gabor pixel per period
-const.gaborSigmaVal = 0.2;                                                  % gaussian envelope in dva
-[const.gaborSigma, ~] = vaDeg2pix(const.gaborSigmaVal, scr);                % gaussian envelope in pixels
-
-
-
 const.ext_motion_ori = [-75, -60, -45, -30, -15,...
                         +15, +30, +45, +60, +75];                           % external motion path orientation relative to vertical in degrees of rotation
+const.ext_motion_ori = [ 45,  45,  45,  45,  45,...
+                         45,  45,  45,  45,  45];                           % external motion path orientation relative to vertical in degrees of rotation
+const.ext_motion_ori = const.ext_motion_ori+90;                    
 const.ext_motion_ori_txt = {'-75 deg', '-60 deg', '-45 deg', '-30 deg', '-15 deg',...
                             '+15 deg', '+30 deg', '+45 deg', '+60 deg', '+75 deg'};
+const.ext_motion_ori_txt = {'-45 deg', '-45 deg', '-45 deg', '-45 deg', '-45 deg',...
+                            '+45 deg', '+45 deg', '+45 deg', '+45 deg', '+45 deg'};
 
 const.stim_position = [1, 2];                                               % position of the stimulus on the screen (1: left; 2: right)
 const.stim_position_txt = {'left', 'right'};                                
@@ -57,6 +54,12 @@ const.stim_position_txt = {'left', 'right'};
 const.ext_motion_ver_dir = [1, 2];                                          % external motion vertical direction (1: downward; 2: upward)
 const.ext_motion_ver_dir_txt = {'downward', 'upward'};
 
+const.gaborSizeVal = 3.0;                                                  % full gabor diameter in dva
+[const.gaborSize, ~] = vaDeg2pix(const.gaborSizeVal, scr);                  % full gabor diameter in pixels
+const.gaborFrequency = 2;                                                   % gabor spatial frequency in cycles per dva
+const.gaborPixPerPeriod = const.ppd/const.gaborFrequency;                   % gabor pixel per period
+const.gaborSigmaVal = 0.8;                                                  % gaussian envelope in dva
+[const.gaborSigma, ~] = vaDeg2pix(const.gaborSigmaVal, scr);                % gaussian envelope in pixels
 
 % compute external motion center point
 ext_motion_ori_num = 0;
@@ -83,12 +86,13 @@ for ext_motion_ori = const.ext_motion_ori
             
             const.ext_motion_ctr{ext_motion_ori_num, stim_position,...
                 ext_motion_ver_dir} = ...
-                [ctr_ext_motion(1) + amp_from_ctr * cosd(ext_motion_ori+90);...
-                 ctr_ext_motion(2) + amp_from_ctr * -sind(ext_motion_ori+90)];
+                [ctr_ext_motion(1) + amp_from_ctr * cosd(ext_motion_ori);...
+                 ctr_ext_motion(2) + amp_from_ctr * -sind(ext_motion_ori)];
             
         end
     end
 end
+
 
 % Time parameters
 const.initial_fix_dur_sec = 0.500;                                          % trial initial fixation check duration in seconds

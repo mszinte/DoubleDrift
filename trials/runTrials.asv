@@ -50,10 +50,9 @@ trial_onset = ext_motion_onset;
 trial_offset = resp_offset;
 
 % define stimulus
-gab_phase = 0;
-gab_angle = -const.ext_motion_ori(var2);
+phase = 0;
 gabor_mat = generateGabor(const.gaborSize, const.gaborPixPerPeriod, ...
-    gab_angle, const.gaborSigma, gab_phase , const.black, const.white, 1);
+    0, const.gaborSigma, phase, const.black, const.white, 1);
 gabor = Screen('MakeTexture', scr.main, gabor_mat);
 
 % Main diplay loop
@@ -104,7 +103,7 @@ while nbf < trial_offset
             log_txt = sprintf('trial %i event %s', expDes.t, ...
                 my_key.leftVal);
             if const.tracker; Eyelink('message','%s',log_txt); end
-        elseif keyCode(my_key.right) && ~button_on
+        elseif keyCode(my_key.right)
             expDes.expMat(expDes.t, 8) = 2;
             button_on = GetSecs;
             my_sound(4, aud);

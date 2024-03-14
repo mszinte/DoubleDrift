@@ -27,7 +27,6 @@ if (scr.scr_sizeX ~= const.desiredRes(1) || scr.scr_sizeY ~= ...
         const.desiredRes(1),const.desiredRes(2));
 end
 
-
 % Settings for Display ++ INT
 scr.disp_sizeX = 696;
 scr.disp_sizeY = 391;
