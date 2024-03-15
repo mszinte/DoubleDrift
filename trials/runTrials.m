@@ -18,29 +18,27 @@ function expDes = runTrials(scr, aud, const, expDes, my_key, eyetrack)
 % ----------------------------------------------------------------------
 % Function created by Martin SZINTE (martin.szinte@gmail.com)
 % ----------------------------------------------------------------------
-
-
     
 % Compute and simplify var and rand
 var1 = expDes.expMat(expDes.t, 5);
 var2 = expDes.expMat(expDes.t, 6);
 rand1 = expDes.expMat(expDes.t, 7);
 rand2 = expDes.expMat(expDes.t, 8);
-gaborCtrs = const.ext_motion_ctr{var2, var1, rand1};
-gab_angle = -const.ext_motion_ori(var2);
+gabor_ctrs = const.ext_motion_ctr{var2, var1, rand1};
+gabor_angle = -const.ext_motion_ori(var2);
 if rand1 == 1
     % downward
     if const.ext_motion_ori(var2) > 0 
-        gab_phases = const.phase_left;
+        gabor_phases = const.phase_left;
     elseif const.ext_motion_ori(var2) < 0
-        gab_phases = const.phase_right;
+        gabor_phases = const.phase_right;
     end
 elseif rand1 == 2
     % upward
     if const.ext_motion_ori(var2) > 0
-        gab_phases = const.phase_right;
+        gabor_phases = const.phase_right;
     elseif const.ext_motion_ori(var2) < 0
-        gab_phases = const.phase_left;
+        gabor_phases = const.phase_left;
     end
 end
 
@@ -68,15 +66,6 @@ trial_offset = resp_offset;
 fix_onset = trial_onset;
 fix_offset = const.fix_off_frm(rand2);
 saccade_onset = fix_offset + const.sac_lat_dur_frm;
-
-% compute stimuli
-gaborid = CreateProceduralGabor(scr.main, visual.tarSize, visual.tarSize, 0, [visual.bgColor/255 visual.bgColor/255 visual.bgColor/255 0.0], 1, 0.5);
-Screen('DrawTexture', windowPtr, gaborid, [], dstRect, Angle, [], [],modulateColor, [], kPsychDontDoRotation, [phase+180, freq, sc, contrast, aspectratio, 0, 0, 0]);
-Screen('DrawTexture', scr.main, gaborid, [], pathRects(i,:), gaborAngle, [], [], [], [], kPsychDontDoRotation, [td.tarPhase(i), td.tarFreq, td.sigma, td.contrast, 1, 0, 0, 0]);
-
-for nbf_motion = 1:const.ext_motion_dur_frm
-    gabor_mat(:,:,:,nbf_motion) = computeGabor(const, gab_angle, gab_phases, nbf_motion);
-end
 
 % Main diplay loop
 nbf = 0;
@@ -114,9 +103,10 @@ while nbf < trial_offset
     Screen('FillRect', scr.main, const.background_color)
     
     % Motion
-    if nbf >= ext_motion_onset && nbf <= ext_motion_offset% && fix
+    if nbf >= ext_motion_onset && nbf <= ext_motion_offset && fix
         nbf_motion = nbf_motion +1;
-        drawGabor(scr, const, gaborCtrs(:,:,nbf_motion), gabor_mat(:,:,:,nbf_motion))
+        drawGabor(scr, const, expDes.gabor_id, gabor_ctrs, ....
+            gabor_phases, gabor_angle, nbf)
     end
     
     % Fixation bull's eye

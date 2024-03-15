@@ -1,6 +1,8 @@
-function drawGabor(scr, const, gaborCtr, gabor_mat)
+function drawGabor(scr, const, gabor_id, gabor_ctrs, gabor_phases, ...
+    gabor_angle, nbf)
 % ----------------------------------------------------------------------
-% drawGabor(scr, const, gaborCtrs, gabor_mat)
+% drawGabor(scr, const, gabor_id, gabor_ctrs, gabor_phases, ...
+%   gabor_angle, nbf)
 % ----------------------------------------------------------------------
 % Goal of the function :
 % Draw drift motion gabor
@@ -8,8 +10,11 @@ function drawGabor(scr, const, gaborCtr, gabor_mat)
 % Input(s) :
 % scr : struct containing screen configurations
 % const : struct containing constant configurations
-% gaborCtr: gabor center position 
-% gabor_mat: matrix of the gabor
+% gabor_id : gabor id from CreateProceduralGabor
+% gabor_ctrs: list of gabor center position
+% gab_angle: gabor angle
+% gab_phases: list of gabor phase value
+% nbf : frame of motion
 % ----------------------------------------------------------------------
 % Output(s):
 % none
@@ -17,13 +22,15 @@ function drawGabor(scr, const, gaborCtr, gabor_mat)
 % Function created by Martin SZINTE (martin.szinte@gmail.com)
 % ----------------------------------------------------------------------
 
-gaborRect = [gaborCtr(1) - const.gaborSize/2,...
-             gaborCtr(2) - const.gaborSize/2,...
-             gaborCtr(1) + const.gaborSize/2,...
-             gaborCtr(2) + const.gaborSize/2];
+gabor_rect = [gabor_ctrs(1,nbf) - const.gaborSize/2,...
+              gabor_ctrs(2,nbf) - const.gaborSize/2,...
+              gabor_ctrs(1,nbf) + const.gaborSize/2,...
+              gabor_ctrs(2,nbf) + const.gaborSize/2];
+gabor_phase = gabor_phases(nbf);
+gabor_contrast = const.gabor_contrasts(nbf);
 
-gabor = Screen('MakeTexture', scr.main, gabor_mat); 
-Screen('DrawTexture', scr.main, gabor, [], gaborRect);
-Screen('Close', gabor);
+Screen('DrawTexture', scr.main, gabor_id, [], gabor_rect, gabor_angle, ...
+    [], [], [], [], kPsychDontDoRotation, [gabor_phase, const.gaborPeriod, ...
+    const.gaborSigma, gabor_contrast, 1, 0, 0, 0]);
 
 end

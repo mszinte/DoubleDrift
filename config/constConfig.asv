@@ -115,8 +115,15 @@ const.gabor_contrasts = ones(1,const.ext_motion_dur_frm);
 const.gabor_contrast_ramp = linspace(0,1,const.ext_motion_fading_dur_frm+2);
 const.gabor_contrasts(1:const.ext_motion_fading_dur_frm) = const.gabor_contrast_ramp(2:end-1);
 
+
+dur = 1.2;
+freq = 2;
+fs = 120;
+t = 0:1/scr.hz:const.ext_motion_dur_sec*freq*(1/freq)-1/fs;
+x = sawtooth(2*pi*2*t,1/2)*180;
+
 const.phase_left = linspace(0, const.int_motion_freq * ... 
-    const.ext_motion_dur_sec, const.ext_motion_steps)*180;
+    const.ext_motion_dur_sec, const.ext_motion_steps);
 const.phase_right = flip(const.phase_left);
 
 const.fix_off_frm = const.fix_off_time_prct * const.ext_motion_dur_frm;     % fixation offset frame

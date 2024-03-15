@@ -42,7 +42,7 @@ const.tracker = 0;                      % run with eye tracker (0 = NO, 1 = YES)
 const.training = 0;                     % training session (0 = NO, 1 = YES)
 
 % Desired screen settings
-const.desiredFD = 120;                   % Desired refresh rate
+const.desiredFD = 60;                   % Desired refresh rate
 const.desiredRes = [1920, 1080];        % Desired resolution
 
 % Path

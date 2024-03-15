@@ -26,7 +26,7 @@ t_handle = Screen('MakeTexture', scr.main, imageToDraw);
 texrect = Screen('Rect', t_handle);
 push_button = 0;
 
-Screen('FillRect', scr.main, const.background_color);
+% Screen('FillRect', scr.main, const.background_color);
 Screen('DrawTexture', scr.main, t_handle, texrect,...
     [0, 0, scr.scr_sizeX, scr.scr_sizeY]);
 Screen('Flip', scr.main);

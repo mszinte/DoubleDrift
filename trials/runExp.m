@@ -112,6 +112,10 @@ end
 
 % Trial loop
 
+% compute stimuli
+expDes.gabor_id = CreateProceduralGabor(scr.main, round(const.gaborSize), ...
+    round(const.gaborSize), 0, [0.5,0.5,0.5,1], 1, 1);
+
 for t = 1:const.nb_trials
     expDes.t = t;
     trialDone = 0;
