@@ -47,6 +47,9 @@ const.gaborSigmaVal = 0.1;                                                  % ga
 
 const.ext_motion_ori = [-75, -60, -45, -30, -15,...
                         +15, +30, +45, +60, +75];                           % external motion path orientation relative to vertical in degrees of rotation
+
+const.ext_motion_ori = [-45, -45, -45, -40, -45,...
+                        +45, +45, +45, +40, +45];                           % external motion path orientation relative to vertical in degrees of rotation
 const.ext_motion_ori_txt = {'-75 deg', '-60 deg', '-45 deg', '-30 deg', '-15 deg',...
                             '+15 deg', '+30 deg', '+45 deg', '+60 deg', '+75 deg'};
 
@@ -126,7 +129,7 @@ const.sac_lat_dur_frm = round(const.sac_lat_dur_sec / ...                   % th
     const.nb_repeat = 1;                                                    % Trial repetition in video mode
     const.nb_trials = 1;                                                    % Number of trials in video mode
 else
-    const.nb_repeat = 10
+    const.nb_repeat = 1;
     const.nb_trials = length(const.ext_motion_ori) * ...                     % number of trials
         length(const.stim_position) * const.nb_repeat;
 end

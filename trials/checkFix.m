@@ -18,13 +18,16 @@ function [fix, expDes] = checkFix(scr, const, expDes, my_key, eyetrack)
 % ----------------------------------------------------------------------
 % Function created by Martin SZINTE (martin.szinte@gmail.com)
 % ----------------------------------------------------------------------
+% Open video
+if const.mkVideo
+    open(const.vid_obj);
+end
 
 % write in log/edf
 log_txt = sprintf('trial %i check fixation at %f\n', expDes.t, GetSecs);
 if const.tracker
     Eyelink('message', '%s', log_txt);
 end
-
 
 tstart = GetSecs;
 fix = 0;
@@ -38,7 +41,7 @@ while ((t - tstart) < const.fix_timeout_sec && ...
     % Check gaze posiiton
     if const.tracker
         [x, y] = getCoord(eyetrack);
-        if sqrt((x - fix_coord(1))^2 + (y - fix_coord(2))^2) ...
+        if sqrt((x - scr.x_mid)^2 + (y - scr.y_mid)^2) ...
                 < eyetrack.fix_rad
             fix = 1;
         else
@@ -63,8 +66,6 @@ while ((t - tstart) < const.fix_timeout_sec && ...
     end
 
     % define output
-    
-
     if fix == 1 && corStart == 0
         tCorStart = GetSecs;
         corStart = 1;

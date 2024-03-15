@@ -28,7 +28,7 @@ end
 
 % Var 2: external motion orientation
 if const.mkVideo
-    expDes.oneV = input(sprintf('\n\tVAR 2: '));
+    expDes.twoV = input(sprintf('\n\tVAR 2: '));
     expDes.nb_var2 = 1;
 else
     expDes.twoV = const.ext_motion_ori';
@@ -70,7 +70,10 @@ for rep = 1:const.nb_repeat
             ii = ii + 1;
             trialMat(ii, 1) = var1;
             trialMat(ii, 2) = var2;
-            
+            if const.mkVideo
+                trialMat(ii, 1) = expDes.oneV;
+                trialMat(ii, 2) = expDes.twoV;
+            end
         end
     end
 end

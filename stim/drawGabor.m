@@ -1,6 +1,6 @@
-function drawGabor(scr, const, gaborCtrs, gab_angle, gab_phases, nbf)
+function drawGabor(scr, const, gaborCtr, gabor_mat)
 % ----------------------------------------------------------------------
-% drawGabor(scr, const, gaborCtrs, gab_angle, gab_phases, nbf)
+% drawGabor(scr, const, gaborCtrs, gabor_mat)
 % ----------------------------------------------------------------------
 % Goal of the function :
 % Draw drift motion gabor
@@ -8,10 +8,8 @@ function drawGabor(scr, const, gaborCtrs, gab_angle, gab_phases, nbf)
 % Input(s) :
 % scr : struct containing screen configurations
 % const : struct containing constant configurations
-% gaborCtrs: list of gabor center position 
-% gab_phases: list of gabor phase value
-% gab_angle: gabor angle
-% nbf : frame of motion
+% gaborCtr: gabor center position 
+% gabor_mat: matrix of the gabor
 % ----------------------------------------------------------------------
 % Output(s):
 % none
@@ -19,16 +17,10 @@ function drawGabor(scr, const, gaborCtrs, gab_angle, gab_phases, nbf)
 % Function created by Martin SZINTE (martin.szinte@gmail.com)
 % ----------------------------------------------------------------------
 
-gaborRect = [gaborCtrs(1, nbf) - const.gaborSize/2,...
-             gaborCtrs(2, nbf) - const.gaborSize/2,...
-             gaborCtrs(1, nbf) + const.gaborSize/2,...
-             gaborCtrs(2, nbf) + const.gaborSize/2];
-
-gab_phase = gab_phases(nbf);
-gabor_contrast = const.gabor_contrasts(nbf);
-gabor_mat = generateGabor(const.gaborSize, const.gaborPixPerPeriod, ...
-            gab_angle, const.gaborSigma, gab_phase, const.black, ...
-            const.white, gabor_contrast, 1);
+gaborRect = [gaborCtr(1) - const.gaborSize/2,...
+             gaborCtr(2) - const.gaborSize/2,...
+             gaborCtr(1) + const.gaborSize/2,...
+             gaborCtr(2) + const.gaborSize/2];
 
 gabor = Screen('MakeTexture', scr.main, gabor_mat); 
 Screen('DrawTexture', scr.main, gabor, [], gaborRect);

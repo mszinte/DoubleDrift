@@ -28,7 +28,7 @@ if const.mkVideo
     const.movie_file = sprintf('%s.mp4', const.vid_folder);
     expDes.vid_num = 0;
     const.vid_obj = VideoWriter(const.movie_file, 'MPEG-4');
-    const.vid_obj.FrameRate = 60;
+    const.vid_obj.FrameRate = 120;
 	const.vid_obj.Quality = 100;
 end
 
@@ -140,7 +140,7 @@ for t = 1:const.nb_trials
 
         % Run Trial
         if fix 
-            expDes = runTrials(scr, aud, const, expDes, my_key);
+            expDes = runTrials(scr, aud, const, expDes, my_key, eyetrack);
             trialDone = 1;
         end
     end

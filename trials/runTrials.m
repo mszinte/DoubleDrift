@@ -1,6 +1,6 @@
-function expDes = runTrials(scr, aud, const, expDes, my_key)
+function expDes = runTrials(scr, aud, const, expDes, my_key, eyetrack)
 % ----------------------------------------------------------------------
-% expDes = runTrials(scr, aud, const, expDes, my_key)
+% expDes = runTrials(scr, aud, const, expDes, my_key, eyetrack)
 % ----------------------------------------------------------------------
 % Goal of the function :
 % Draw stimuli of each indivual trial and waiting for inputs
@@ -11,6 +11,7 @@ function expDes = runTrials(scr, aud, const, expDes, my_key)
 % const : struct containing constant configurations
 % expDes : struct containg experimental design
 % my_key : structure containing keyboard configurations
+% eyetrack: eyetracking settings
 % ----------------------------------------------------------------------
 % Output(s):
 % expDes : struct containing all the variable design configurations.
@@ -18,10 +19,7 @@ function expDes = runTrials(scr, aud, const, expDes, my_key)
 % Function created by Martin SZINTE (martin.szinte@gmail.com)
 % ----------------------------------------------------------------------
 
-% Open video
-if const.mkVideo
-    open(const.vid_obj);
-end
+
     
 % Compute and simplify var and rand
 var1 = expDes.expMat(expDes.t, 5);
@@ -71,8 +69,10 @@ fix_onset = trial_onset;
 fix_offset = const.fix_off_frm(rand2);
 saccade_onset = fix_offset + const.sac_lat_dur_frm;
 
-% Put mouse in screen center
-SetMouse(scr.x_mid, scr.y_mid, scr.scr_num);
+% compute stimuli
+for nbf_motion = 1:const.ext_motion_dur_frm
+    gabor_mat(:,:,:,nbf_motion) = computeGabor(const, gab_angle, gab_phases, nbf_motion);
+end
 
 % Main diplay loop
 nbf = 0;
@@ -110,9 +110,9 @@ while nbf < trial_offset
     Screen('FillRect', scr.main, const.background_color)
     
     % Motion
-    if nbf >= ext_motion_onset && nbf <= ext_motion_offset && fix
+    if nbf >= ext_motion_onset && nbf <= ext_motion_offset% && fix
         nbf_motion = nbf_motion +1;
-        drawGabor(scr, const, gaborCtrs, gab_angle, gab_phases, nbf_motion)
+        drawGabor(scr, const, gaborCtrs(:,:,nbf_motion), gabor_mat(:,:,:,nbf_motion))
     end
     
     % Fixation bull's eye
