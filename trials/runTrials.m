@@ -70,6 +70,10 @@ fix_offset = const.fix_off_frm(rand2);
 saccade_onset = fix_offset + const.sac_lat_dur_frm;
 
 % compute stimuli
+gaborid = CreateProceduralGabor(scr.main, visual.tarSize, visual.tarSize, 0, [visual.bgColor/255 visual.bgColor/255 visual.bgColor/255 0.0], 1, 0.5);
+Screen('DrawTexture', windowPtr, gaborid, [], dstRect, Angle, [], [],modulateColor, [], kPsychDontDoRotation, [phase+180, freq, sc, contrast, aspectratio, 0, 0, 0]);
+Screen('DrawTexture', scr.main, gaborid, [], pathRects(i,:), gaborAngle, [], [], [], [], kPsychDontDoRotation, [td.tarPhase(i), td.tarFreq, td.sigma, td.contrast, 1, 0, 0, 0]);
+
 for nbf_motion = 1:const.ext_motion_dur_frm
     gabor_mat(:,:,:,nbf_motion) = computeGabor(const, gab_angle, gab_phases, nbf_motion);
 end
