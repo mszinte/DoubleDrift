@@ -34,16 +34,7 @@ else
     expDes.twoV = const.ext_motion_ori';
     expDes.nb_var2 = length(expDes.twoV);
 end
-% -85 deg relative to vertical
-% -70 deg relative to vertical
-% -55 deg relative to vertical
-% -40 deg relative to vertical
-% -25 deg relative to vertical
-% +25 deg relative to vertical
-% +40 deg relative to vertical
-% +55 deg relative to vertical
-% +70 deg relative to vertical
-% +85 deg relative to vertical
+% see constConfig.m
 
 % Rand 1: Ext. motion vertical direction
 if const.mkVideo
@@ -53,10 +44,22 @@ else
     expDes.oneR = const.ext_motion_ver_dir';
     expDes.nb_rand1 = length(expDes.oneR);
 end
+% 1: downward
+% 2: upward
+
+% Rand 2: fixation offset time percent
+if const.mkVideo
+    expDes.twoR = input(sprintf('\n\tRAND 2: '));
+    expDes.nb_rand2 = 1;
+else
+    expDes.twoR = const.fix_off_time_prct_num';
+    expDes.nb_rand2 = length(expDes.twoR);
+end
+% see constConfig.m
 
 % Experimental loop
 expDes.nb_var = 2;
-expDes.nb_rand = 1;
+expDes.nb_rand = 2;
 
 % Pursuit experimental loop
 ii = 0;
@@ -75,8 +78,11 @@ trialMat = trialMat(randperm(const.nb_trials),:);
 
 for t_trial = 1:const.nb_trials
     randVal1 = randperm(numel(expDes.oneR));     
+    randVal2 = randperm(numel(expDes.twoR));     
     rand_rand1 = expDes.oneR(randVal1(1));
+    rand_rand2 = expDes.twoR(randVal2(1));
     trialMat(t_trial, 3) = rand_rand1;
+    trialMat(t_trial, 4) = rand_rand2;
 end
 
 expDes.expMat = [zeros(const.nb_trials,2)*nan, ...
@@ -92,7 +98,8 @@ expDes.expMat = [zeros(const.nb_trials,2)*nan, ...
 % 05: external motion screen position
 % 06: external motion orientation
 % 07: external motion vertical direction
-% 08: direction report
-% 09: response duration
+% 08: fixation offset time percent
+% 09: direction report
+% 10: response duration
 
-end
+ end

@@ -15,16 +15,17 @@
 % external motion shown with 10 different orientation (5 cw/ 5ccw, continuous stimuli method)
 % 0.5 s of fixation with fixation check
 % 1.5 s of downward motion
-% 0.5 s of response with beep feedback
+% 1.0 s of response with beep feedback
 % subject report the perceived direction of external motion (cw or ccw)
 % fade in / fade out of 0.100 ms
 
 % To do
 % -----
-% - adapt to latest change of BEP020
 % - make instructions
-% - debug wrapper 
-% - make stimulus and constant values of it
+% - make video
+% - check outputs in lab
+% - check with eyetracker and output with eyetracker
+% - make saccade and behavior analysis
 
 % First settings
 Screen('CloseAll'); clear all; clear mex; clear functions; close all; ...
@@ -40,8 +41,8 @@ const.mkVideo = 0;                      % Make a video (0 = NO, 1 = YES)
 const.tracker = 0;                      % run with eye tracker (0 = NO, 1 = YES)
 const.training = 0;                     % training session (0 = NO, 1 = YES)
 
-% Desired screen setting
-const.desiredFD = 30; %120                  % Desired refresh rate
+% Desired screen settings
+const.desiredFD = 30; %120                   % Desired refresh rate
 const.desiredRes = [1920, 1080];        % Desired resolution
 
 % Path

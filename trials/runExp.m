@@ -21,8 +21,8 @@ function const = runExp(scr, aud, const, expDes, my_key, eyetrack)
 
 % Configuration of videos
 if const.mkVideo
-    const.vid_folder = sprintf('others/movie/%s_v1-%i_v2-%i_r1%i', ...
-        const.task, expDes.oneV, expDes.twoV, expDes.oneR);
+    const.vid_folder = sprintf('others/movie/%s_v1-%i_v2-%i_r1-%i_r2-%i', ...
+        const.task, expDes.oneV, expDes.twoV, expDes.oneR, expDes.twoR);
     if ~isfolder(const.vid_folder); mkdir(const.vid_folder); end
     const.movie_image_file = sprintf('%s/img', const.vid_folder);
     const.movie_file = sprintf('%s.mp4', const.vid_folder);
@@ -111,39 +111,37 @@ if const.tracker
 end
 
 % Trial loop
-expDone = 0;
-while ~expDone
-    for t = 1:const.nb_trials
-        expDes.t = t;
-        trialDone = 0;
-        while ~trialDone
-            if const.tracker
-                Eyelink('command', 'record_status_message ''TRIAL %d / %d''',...
-                    t, const.nb_trials);
-                Eyelink('message', 'TRIALID %d', t);
-            end
-            
-            % Check fixation
-            fix = 0;
-            while ~fix
-                [fix, expDes] = checkFix(scr, const, expDes, my_key, eyetrack);
-                
-                % Calib problems
-                if ~fix
-                    if const.tracker
-                        eyeLinkClearScreen(el.bgCol);
-                        eyeLinkDrawText(scr.x_mid,scr.y_mid,el.txtCol,'CALIBRATION INSTRUCTION - PRESS SPACE');
-                        instructionsIm(scr,const,my_key,sprintf('Calibration'),0);
-                        EyelinkDoTrackerSetup(el);
-                    end
+
+for t = 1:const.nb_trials
+    expDes.t = t;
+    trialDone = 0;
+    while ~trialDone
+        if const.tracker
+            Eyelink('command', 'record_status_message ''TRIAL %d / %d''',...
+                t, const.nb_trials);
+            Eyelink('message', 'TRIALID %d', t);
+        end
+
+        % Check fixation
+        fix = 0;
+        while ~fix
+            [fix, expDes] = checkFix(scr, const, expDes, my_key, eyetrack);
+
+            % Calib problems
+            if ~fix
+                if const.tracker
+                    eyeLinkClearScreen(el.bgCol);
+                    eyeLinkDrawText(scr.x_mid,scr.y_mid,el.txtCol,'CALIBRATION INSTRUCTION - PRESS SPACE');
+                    instructionsIm(scr,const,my_key,sprintf('Calibration'),0);
+                    EyelinkDoTrackerSetup(el);
                 end
             end
-            
-            % Run Trial
-            if fix 
-                expDes = runTrials(scr, aud, const, expDes, my_key);
-                trialDone = 1;
-            end
+        end
+
+        % Run Trial
+        if fix 
+            expDes = runTrials(scr, aud, const, expDes, my_key);
+            trialDone = 1;
         end
     end
 end
@@ -151,7 +149,7 @@ end
 % tsv file
 head_txt = {'onset', 'duration', 'run_number', 'trial_number', ...
             'ext_mot_pos', 'ext_mot_ori', 'ext_mot_ver_dir', ...
-            'direction_report', 'response_duration'};
+            'direction_report', 'fix_off_prct', 'response_duration'};
 % 01: onset
 % 02: duration
 % 03: run number
@@ -159,8 +157,9 @@ head_txt = {'onset', 'duration', 'run_number', 'trial_number', ...
 % 05: external motion screen position
 % 06: external motion orientation
 % 07: external motion vertical direction
-% 08: direction report
-% 09: response duration
+% 08: fixation offset time percent
+% 09: direction report
+% 10: response duration
 for head_num = 1:length(head_txt)
     behav_txt_head{head_num} = head_txt{head_num};
     behav_mat_res{head_num} = expDes.expMat(:,head_num);

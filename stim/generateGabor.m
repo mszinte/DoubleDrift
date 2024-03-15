@@ -1,8 +1,8 @@
 function gabor = generateGabor(imsize, lambda, theta, sigma, phase, ...
-    col1, col2, stim_type)
+    col1, col2, gabor_contrast, stim_type)
 % ----------------------------------------------------------------------
 % gabor = generateGabor(imsize, lambda, theta, sigma, phase, col1, 
-%                       col2, stim_type)
+%                       col2, gabor_contrast, stim_type)
 % ----------------------------------------------------------------------
 % Goal of the function :
 % Generate a gabor (default = Black/White; otherwise = col1/col2
@@ -15,6 +15,7 @@ function gabor = generateGabor(imsize, lambda, theta, sigma, phase, ...
 % phase  = gabor phase (0 => 1)
 % col1   = first color
 % col2   = second color
+% gabor_contrast = gabor contrast (0 => 1)
 % type   = type of the stimulus, 1 or 2 (Gabor or Grating)
 % ----------------------------------------------------------------------
 % Output(s):
@@ -56,7 +57,7 @@ gratingCol2(:, :, 3) = (1 - grating) * col2(3);
 
 % define gabor
 gabor = gratingCol1+gratingCol2;
-gabor(:,:,4) = gauss*255;
+gabor(:,:,4) = gauss*255*gabor_contrast;
 
 end
 

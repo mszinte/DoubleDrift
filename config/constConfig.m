@@ -22,7 +22,8 @@ function const = constConfig(scr, const)
 const.white = [255, 255, 255];                                              % white color
 const.black = [0, 0, 0];                                                    % black color
 const.gray = [128 128 128];                                                 % gray color
-const.fixation_color = const.white;                                         % fixation point color
+const.red = [200, 0, 0];                                                    % red color
+const.fixation_color = const.black;                                         % fixation point color
 const.background_color = const.gray;                                        % background color
 
 % Stim parameters
@@ -30,21 +31,19 @@ const.background_color = const.gray;                                        % ba
 const.dpp = 1/const.ppd;                                                    % degrees per pixel
 const.eccVal = 10;                                                          % eccentricity of the trajectory midpoint in dva
 [const.ecc] = vaDeg2pix(const.eccVal, scr);                                 % eccentricity of the trajectory midpoint in pixels
-const.gabor_pathVal = 3;                                                    % gabor path size in dva
+const.gabor_pathVal = 4;                                                    % gabor path size in dva
 const.gabor_path = vaDeg2pix(const.gabor_pathVal, scr);                     % gabor path size in pixels
 const.ext_motion_speedVal = 2;                                              % external motion speed in dva/sec
 const.ext_motion_speed = vaDeg2pix(const.ext_motion_speedVal, scr);         % external motion speed in pix/sec
 const.ext_motion_steps = round((const.gabor_pathVal / ...
     const.ext_motion_speedVal) / scr.frame_duration);
 const.int_motion_freq = 3;                                                  % internal motion temporal frequency in Hz
-const.gaborSizeVal = 2.0;                                                   % full gabor diameter in dva
+const.gaborSizeVal = 10.0;                                                   % full gabor diameter in dva
 [const.gaborSize, ~] = vaDeg2pix(const.gaborSizeVal, scr);                  % full gabor diameter in pixels
 const.gaborFrequency = 2;                                                   % gabor spatial frequency in cycles per dva
 const.gaborPixPerPeriod = const.ppd/const.gaborFrequency;                   % gabor pixel per period
-const.gaborSigmaVal = 0.2;                                                  % gaussian envelope in dva
+const.gaborSigmaVal = 0.1;                                                  % gaussian envelope in dva
 [const.gaborSigma, ~] = vaDeg2pix(const.gaborSigmaVal, scr);                % gaussian envelope in pixels
-
-
 
 const.ext_motion_ori = [-75, -60, -45, -30, -15,...
                         +15, +30, +45, +60, +75];                           % external motion path orientation relative to vertical in degrees of rotation
@@ -57,6 +56,11 @@ const.stim_position_txt = {'left', 'right'};
 const.ext_motion_ver_dir = [1, 2];                                          % external motion vertical direction (1: downward; 2: upward)
 const.ext_motion_ver_dir_txt = {'downward', 'upward'};
 
+const.fix_off_step = 5;                                                     % fixation offset steps
+const.fix_off_time_prct = linspace(.2, .6, const.fix_off_step);             % fixation offset in terms of percentage of motion path
+const.fix_off_time_prct_num = linspace(1, const.fix_off_step, ...           % number for design matrix
+    const.fix_off_step);
+const.fix_off_time_prct_txt = {'20%', '30%', '40%', '50%', '60%'};
 
 % compute external motion center point
 ext_motion_ori_num = 0;
@@ -97,20 +101,32 @@ const.initial_fix_dur_frm = round(const.initial_fix_dur_sec /...            % tr
 const.ext_motion_dur_sec = const.gabor_pathVal / const.ext_motion_speedVal; % external motion duration in seconds
 const.ext_motion_dur_frm = round(const.ext_motion_dur_sec / ...             % external motion duration in in frames
     scr.frame_duration);
+const.fix_timeout_sec = const.initial_fix_dur_sec;                          % fixation check maximum duration in seconds
+const.fix_min_correct_sec = 0.200;                                          % correct fixation check minimum duration in seconds
+const.resp_dur_sec = 1.000;                                                 % response time duration in seconds
+const.resp_dur_frm = round(const.resp_dur_sec / scr.frame_duration);        % response time duration in frames
 const.ext_motion_fading_dur_sec = 0.100;                                    % external motion fading duration in seconds
 const.ext_motion_fading_dur_frm = round(const.ext_motion_fading_dur_sec /...% external motion fading duration in frames
     scr.frame_duration);
-const.fix_timeout_sec = const.initial_fix_dur_sec;                          % fixation check maximum duration in seconds
-const.fix_min_correct_sec = 0.200;                                          % correct fixation check minimum duration in seconds
-const.resp_dur_sec = 0.500;                                                 % response time duration in seconds
-const.resp_dur_frm = round(const.resp_dur_sec / scr.frame_duration);        % response time duration in frames
+const.gabor_contrasts = ones(1,const.ext_motion_dur_frm);
+const.gabor_contrast_ramp = linspace(0,1,const.ext_motion_fading_dur_frm+2);
+const.gabor_contrasts(1:const.ext_motion_fading_dur_frm) = const.gabor_contrast_ramp(2:end-1);
+
+const.phase_left = linspace(0, const.int_motion_freq * ... 
+    const.ext_motion_dur_sec, const.ext_motion_steps);
+const.phase_right = flip(const.phase_left);
+
+const.fix_off_frm = const.fix_off_time_prct * const.ext_motion_dur_frm;     % fixation offset frame
+const.sac_lat_dur_sec = 0.180;                                              % theoretical saccade latency duration in seconds
+const.sac_lat_dur_frm = round(const.sac_lat_dur_sec / ...                   % theoretical saccade latency duration in frames
+    scr.frame_duration);
 
 % Trial settings
-if const.mkVideo
+ if const.mkVideo
     const.nb_repeat = 1;                                                    % Trial repetition in video mode
     const.nb_trials = 1;                                                    % Number of trials in video mode
 else
-    const.nb_repeat = 10;
+    const.nb_repeat = 10
     const.nb_trials = length(const.ext_motion_ori) * ...                     % number of trials
         length(const.stim_position) * const.nb_repeat;
 end
