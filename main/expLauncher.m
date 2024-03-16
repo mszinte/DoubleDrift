@@ -22,10 +22,10 @@
 % To do
 % -----
 % - make instructions
-% - make video
-% - check outputs in lab
-% - check with eyetracker and output with eyetracker
-% - make saccade and behavior analysis
+% - check outputs behavior
+% - check in lab with eyetracking
+% - check outputs eyetracking
+% - make behavioral and saccade analysis
 
 % First settings
 Screen('CloseAll'); clear all; clear mex; clear functions; close all; ...
@@ -40,9 +40,10 @@ const.mkVideo = 0;                      % Make a video (0 = NO, 1 = YES)
 % External controls
 const.tracker = 0;                      % run with eye tracker (0 = NO, 1 = YES)
 const.training = 0;                     % training session (0 = NO, 1 = YES)
+const.display = 1;                      % diplay (1 = Display++; 2 = MacBookPro)
 
 % Desired screen settings
-const.desiredFD = 60;                   % Desired refresh rate
+const.desiredFD = 120;                  % Desired refresh rate
 const.desiredRes = [1920, 1080];        % Desired resolution
 
 % Path

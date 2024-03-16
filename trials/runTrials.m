@@ -25,7 +25,8 @@ var2 = expDes.expMat(expDes.t, 6);
 rand1 = expDes.expMat(expDes.t, 7);
 rand2 = expDes.expMat(expDes.t, 8);
 gabor_ctrs = const.ext_motion_ctr{var2, var1, rand1};
-gabor_angle = -const.ext_motion_ori(var2);
+gabor_angle = const.ext_motion_ori(var2);
+
 if rand1 == 1
     % downward
     if const.ext_motion_ori(var2) > 0 
@@ -103,7 +104,7 @@ while nbf < trial_offset
     Screen('FillRect', scr.main, const.background_color)
     
     % Motion
-    if nbf >= ext_motion_onset && nbf <= ext_motion_offset && fix
+    if nbf >= ext_motion_onset && nbf <= ext_motion_offset %&& fix
         nbf_motion = nbf_motion +1;
         drawGabor(scr, const, expDes.gabor_id, gabor_ctrs, ....
             gabor_phases, gabor_angle, nbf)

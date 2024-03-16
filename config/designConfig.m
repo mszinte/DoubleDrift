@@ -17,7 +17,8 @@ function expDes = designConfig(const)
 % Experimental variables
 % Var 1: external motion screen position
 if const.mkVideo
-    expDes.oneV = input(sprintf('\n\tVAR 1: '));
+    expDes.oneV = input(sprintf(...
+        '\n\tVAR 1: motion position (1: left; 2: right): '));
     expDes.nb_var1 = 1;
 else
     expDes.oneV = const.stim_position';
@@ -28,7 +29,8 @@ end
 
 % Var 2: external motion orientation
 if const.mkVideo
-    expDes.twoV = input(sprintf('\n\tVAR 2: '));
+    expDes.twoV = input(sprintf(...
+        '\n\tVAR 2: motion orientation (1/10: -/+75, 2/9: -/+60, 3/8: -/+45, 4/7: -/+30, 5/6: -/+15: '));
     expDes.nb_var2 = 1;
 else
     expDes.twoV = const.ext_motion_ori';
@@ -38,7 +40,7 @@ end
 
 % Rand 1: Ext. motion vertical direction
 if const.mkVideo
-    expDes.oneR = input(sprintf('\n\tRAND 1: '));
+    expDes.oneR = input(sprintf('\n\tRAND 1: motion direction (1: downward; 2: upward): '));
     expDes.nb_rand1 = 1;
 else
     expDes.oneR = const.ext_motion_ver_dir';
@@ -49,7 +51,7 @@ end
 
 % Rand 2: fixation offset time percent
 if const.mkVideo
-    expDes.twoR = input(sprintf('\n\tRAND 2: '));
+    expDes.twoR = input(sprintf('\n\tRAND 2: fixation offset time percentage (1: 20%%; 2: 30%%; 3: 40%%; 4: 50%%; 5: 60%%): '));
     expDes.nb_rand2 = 1;
 else
     expDes.twoR = const.fix_off_time_prct_num';

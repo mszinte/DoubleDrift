@@ -42,7 +42,7 @@ const.gaborSizeVal = 3.0;                                                   % fu
 const.gaborFrequency = 2;                                                   % gabor spatial frequecny
 const.gaborPeriod = const.gaborFrequency/const.ppd;                         % period per pixel
 const.freq = const.ppd/const.gaborFrequency;                   
-const.gaborSigmaVal = 0.1;                                                  % gaussian envelope in dva
+const.gaborSigmaVal = 0.2;                                                  % gaussian envelope in dva
 [const.gaborSigma, ~] = vaDeg2pix(const.gaborSigmaVal, scr);                % gaussian envelope in pixels
 
 const.ext_motion_ori = [-75, -60, -45, -30, -15,...
@@ -98,14 +98,11 @@ for ext_motion_ori = const.ext_motion_ori
 end
 
 % Time parameters
-const.initial_fix_dur_sec = 0.500;                                          % trial initial fixation check duration in seconds
-const.initial_fix_dur_frm = round(const.initial_fix_dur_sec /...            % trial initial fixation check duration in frames
-    scr.frame_duration);
 const.ext_motion_dur_sec = const.gabor_pathVal / const.ext_motion_speedVal; % external motion duration in seconds
 const.ext_motion_dur_frm = round(const.ext_motion_dur_sec / ...             % external motion duration in in frames
     scr.frame_duration);
-const.fix_timeout_sec = const.initial_fix_dur_sec;                          % fixation check maximum duration in seconds
-const.fix_min_correct_sec = 0.200;                                          % correct fixation check minimum duration in seconds
+const.fix_timeout_sec = 1.000;                                              % fixation check maximum duration in seconds
+const.fix_min_correct_sec = 0.500;                                          % correct fixation check minimum duration in seconds
 const.resp_dur_sec = 1.000;                                                 % response time duration in seconds
 const.resp_dur_frm = round(const.resp_dur_sec / scr.frame_duration);        % response time duration in frames
 const.ext_motion_fading_dur_sec = 0.100;                                    % external motion fading duration in seconds

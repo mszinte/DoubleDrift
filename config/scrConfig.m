@@ -27,12 +27,22 @@ if (scr.scr_sizeX ~= const.desiredRes(1) || scr.scr_sizeY ~= ...
         const.desiredRes(1),const.desiredRes(2));
 end
 
-% Settings for Display ++ INT
-scr.disp_sizeX = 696;
-scr.disp_sizeY = 391;
-scr.dist = 60;
-scr.distTop = 1210;
-scr.distBot = 1210;
+if const.display == 1
+    % Settings for Display ++ INT
+    scr.disp_sizeX = 696;
+    scr.disp_sizeY = 391;
+    scr.dist = 60;
+    scr.distTop = 610;
+    scr.distBot = 610;
+elseif const.display == 2
+    % Settings for MacMookPro
+    scr.disp_sizeX = 286;
+    scr.disp_sizeY = 159;
+    scr.dist = 40;
+    scr.distTop = 1210;
+    scr.distBot = 1210;
+end
+
 scr.disp_sizeLeft = round(-scr.disp_sizeX/2);
 scr.disp_sizeRight = round(scr.disp_sizeX/2);
 scr.disp_sizeTop = round(scr.disp_sizeY/2);
@@ -40,7 +50,7 @@ scr.disp_sizeBot = round(-scr.disp_sizeY/2);
 scr.x_mid = (scr.scr_sizeX/2.0);
 scr.y_mid = (scr.scr_sizeY/2.0);
 scr.mid = [scr.x_mid,scr.y_mid];
-
+    
 % Pixels size
 scr.clr_depth = Screen('PixelSize', scr.scr_num);
 

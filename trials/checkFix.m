@@ -54,16 +54,7 @@ while ((t - tstart) < const.fix_timeout_sec && ...
     % Draw fixation target
     Screen('FillRect', scr.main, const.background_color);
     drawBullsEye(scr, const, scr.x_mid, scr.y_mid, 1);
-    Screen('Flip',scr.main);
-
-    % Create movie
-    if const.mkVideo
-        expDes.vid_num = expDes.vid_num + 1;
-        image_vid = Screen('GetImage', scr.main);
-        imwrite(image_vid,sprintf('%s_frame_%i.png', ...
-            const.movie_image_file, expDes.vid_num))
-        writeVideo(const.vid_obj,image_vid);
-    end
+    t = Screen('Flip',scr.main);
 
     % define output
     if fix == 1 && corStart == 0
@@ -74,8 +65,7 @@ while ((t - tstart) < const.fix_timeout_sec && ...
     else
         corStart = 0;
     end
-    t = GetSecs;
-
+   
     % Check keyboard
     keyPressed = 0;
     keyCode = zeros(1,my_key.keyCodeNum);

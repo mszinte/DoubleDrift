@@ -42,7 +42,7 @@ const.gaborSizeVal = 3.0;                                                   % fu
 const.gaborFrequency = 2;                                                   % gabor spatial frequecny
 const.gaborPeriod = const.gaborFrequency/const.ppd;                         % period per pixel
 const.freq = const.ppd/const.gaborFrequency;                   
-const.gaborSigmaVal = 0.1;                                                  % gaussian envelope in dva
+const.gaborSigmaVal = 0.2;                                                  % gaussian envelope in dva
 [const.gaborSigma, ~] = vaDeg2pix(const.gaborSigmaVal, scr);                % gaussian envelope in pixels
 
 const.ext_motion_ori = [-75, -60, -45, -30, -15,...
@@ -115,16 +115,9 @@ const.gabor_contrasts = ones(1,const.ext_motion_dur_frm);
 const.gabor_contrast_ramp = linspace(0,1,const.ext_motion_fading_dur_frm+2);
 const.gabor_contrasts(1:const.ext_motion_fading_dur_frm) = const.gabor_contrast_ramp(2:end-1);
 
-
-dur = 1.2;
-freq = 2;
-fs = 120;
-t = 0:1/scr.hz:const.ext_motion_dur_sec*freq*(1/freq)-1/fs;
-x = sawtooth(2*pi*2*t,1/2)*180;
-
-const.phase_left = linspace(0, const.int_motion_freq * ... 
-    const.ext_motion_dur_sec, const.ext_motion_steps);
-const.phase_right = flip(const.phase_left);
+const.phase_right = linspace(0, const.int_motion_freq * ... 
+    const.ext_motion_dur_sec, const.ext_motion_steps)*180;
+const.phase_l = flip(const.phase_left);
 
 const.fix_off_frm = const.fix_off_time_prct * const.ext_motion_dur_frm;     % fixation offset frame
 const.sac_lat_dur_sec = 0.180;                                              % theoretical saccade latency duration in seconds
