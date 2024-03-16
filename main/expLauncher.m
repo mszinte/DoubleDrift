@@ -9,20 +9,20 @@
 % Current Biology (http://dx.doi.org/10.1016/j.cub.2015.08.021)
 % for the AMU Neuroscience Master APP 2024 courses.
 
-% Details
+% Details 
 % -------
 % external motion presented left or right of fixation
 % external motion shown with 10 different orientation (5 cw/ 5ccw, continuous stimuli method)
+% external motion presented with upward or downward direction
+% 5 fixation offset (signal to start saccade)
 % 0.5 s of fixation with fixation check
-% 1.5 s of downward motion
+% 2.0 s of double drift motion in theory but switched off at saccade onset
 % 1.0 s of response with beep feedback
+% subject move their gaze to the double drift gabor at fixation offset
 % subject report the perceived direction of external motion (cw or ccw)
-% fade in / fade out of 0.100 ms
-
+ 
 % To do
 % -----
-% - make instructions
-% - check outputs behavior
 % - check in lab with eyetracking
 % - check outputs eyetracking
 % - make behavioral and saccade analysis
@@ -40,10 +40,10 @@ const.mkVideo = 0;                      % Make a video (0 = NO, 1 = YES)
 % External controls
 const.tracker = 0;                      % run with eye tracker (0 = NO, 1 = YES)
 const.training = 0;                     % training session (0 = NO, 1 = YES)
-const.display = 1;                      % diplay (1 = Display++; 2 = MacBookPro)
+const.display = 2;                      % diplay (1 = Display++; 2 = MacBookPro)
 
 % Desired screen settings
-const.desiredFD = 120;                  % Desired refresh rate
+const.desiredFD = 60;                  % Desired refresh rate
 const.desiredRes = [1920, 1080];        % Desired resolution
 
 % Path

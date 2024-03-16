@@ -104,7 +104,7 @@ while nbf < trial_offset
     Screen('FillRect', scr.main, const.background_color)
     
     % Motion
-    if nbf >= ext_motion_onset && nbf <= ext_motion_offset %&& fix
+    if nbf >= ext_motion_onset && nbf <= ext_motion_offset && fix
         nbf_motion = nbf_motion +1;
         drawGabor(scr, const, expDes.gabor_id, gabor_ctrs, ....
             gabor_phases, gabor_angle, nbf)
@@ -157,10 +157,6 @@ while nbf < trial_offset
             const.movie_image_file, expDes.vid_num))
         writeVideo(const.vid_obj,image_vid);
     end
-    if nbf == trial_onset
-        log_txt = sprintf('trial %i started\n', expDes.t);
-        if const.tracker; Eyelink('message','%s',log_txt); end
-    end
     if nbf == trial_offset
         log_txt = sprintf('trial %i ended\n', expDes.t);
         if const.tracker; Eyelink('message','%s',log_txt); end
@@ -193,8 +189,8 @@ while nbf < trial_offset
         if const.tracker; Eyelink('message','%s',log_txt); end
     end
 end
-expDes.expMat(expDes.t, 1) = trial_on;
-expDes.expMat(expDes.t, 2) = trial_off - trial_on;
+expDes.expMat(expDes.t, 1) = expDes.tstart;
+expDes.expMat(expDes.t, 2) = trial_off - expDes.tstart;
 if button_on == 0
     expDes.expMat(expDes.t, end) = nan;
 else
