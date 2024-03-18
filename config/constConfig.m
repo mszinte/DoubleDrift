@@ -42,7 +42,7 @@ const.gaborSizeVal = 3.0;                                                   % fu
 const.gaborFrequency = 2;                                                   % gabor spatial frequecny
 const.gaborPeriod = const.gaborFrequency/const.ppd;                         % period per pixel
 const.freq = const.ppd/const.gaborFrequency;                   
-const.gaborSigmaVal = 0.2;                                                  % gaussian envelope in dva
+const.gaborSigmaVal = 0.15;                                                  % gaussian envelope in dva
 [const.gaborSigma, ~] = vaDeg2pix(const.gaborSigmaVal, scr);                % gaussian envelope in pixels
 
 const.ext_motion_ori = [-75, -60, -45, -30, -15,...
@@ -105,7 +105,7 @@ const.fix_timeout_sec = 1.000;                                              % fi
 const.fix_min_correct_sec = 0.500;                                          % correct fixation check minimum duration in seconds
 const.resp_dur_sec = 1.000;                                                 % response time duration in seconds
 const.resp_dur_frm = round(const.resp_dur_sec / scr.frame_duration);        % response time duration in frames
-const.ext_motion_fading_dur_sec = 0.100;                                    % external motion fading duration in seconds
+const.ext_motion_fading_dur_sec = 0.150;                                    % external motion fading duration in seconds
 const.ext_motion_fading_dur_frm = round(const.ext_motion_fading_dur_sec /...% external motion fading duration in frames
     scr.frame_duration);
 const.gabor_contrasts = ones(1,const.ext_motion_dur_frm);
@@ -120,14 +120,18 @@ const.fix_off_frm = const.fix_off_time_prct * const.ext_motion_dur_frm;     % fi
 const.sac_lat_dur_sec = 0.180;                                              % theoretical saccade latency duration in seconds
 const.sac_lat_dur_frm = round(const.sac_lat_dur_sec / ...                   % theoretical saccade latency duration in frames
     scr.frame_duration);
-%sin(linspace(0,4*pi*
+
 % Trial settings
  if const.mkVideo
     const.nb_repeat = 1;                                                    % Trial repetition in video mode
     const.nb_trials = 1;                                                    % Number of trials in video mode
-else
-    const.nb_repeat = 1;
-    const.nb_trials = length(const.ext_motion_ori) * ...                     % number of trials
+ else
+    if const.training
+        const.nb_repeat = 1;
+    else
+        const.nb_repeat = 4;
+    end
+    const.nb_trials = length(const.ext_motion_ori) * ...                    % number of trials
         length(const.stim_position) * const.nb_repeat;
 end
 

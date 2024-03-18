@@ -36,7 +36,7 @@ eyetrack.fixation_color = const.fixation_color;
 eyetrack.txtCol = 15;
 eyetrack.bgCol = 0;
 eyetrack.recEye = 1;
-eyetrack.fix_radVal = 2;
+eyetrack.fix_radVal = 1.5;
 eyetrack.fix_rad = vaDeg2pix(eyetrack.fix_radVal, scr);
 
 % Change button to use the button box in the scanner
