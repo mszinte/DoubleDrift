@@ -132,12 +132,20 @@ for t = 1:const.nb_trials
             [fix, expDes] = checkFix(scr, const, expDes, my_key, eyetrack);
 
             % Calib problems
-            if ~fix
+            if ~fix 
                 if const.tracker
-                    eyeLinkClearScreen(el.bgCol);
-                    eyeLinkDrawText(scr.x_mid,scr.y_mid,el.txtCol,'CALIBRATION INSTRUCTION - PRESS SPACE');
-                    instructionsIm(scr,const,my_key,sprintf('Calibration'),0);
-                    EyelinkDoTrackerSetup(el);
+                    fprintf(1,'\n\tCalibration instructions - press space or right1-\n');
+                    eyeLinkClearScreen(eyetrack.bgCol);
+                    eyeLinkDrawText(scr.x_mid, scr.y_mid, eyetrack.txtCol, ...
+                        'CALIBRATION INSTRUCTION - PRESS SPACE');
+                    instructionsIm(scr, const, my_key, 'Calibration', 0);
+                    EyelinkDoTrackerSetup(eyetrack);
+                    Eyelink('startrecording');
+                    key=1;
+                    while key ~=  0;key = EyelinkGetKey(eyetrack);end
+                end
+                for keyb = 1:size(my_key.keyboard_idx, 2)
+                    KbQueueFlush(my_key.keyboard_idx(keyb));
                 end
             end
         end
