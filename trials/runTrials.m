@@ -1,13 +1,12 @@
-function expDes = runTrials(scr, aud, const, expDes, my_key, eyetrack)
+function expDes = runTrials(scr, const, expDes, my_key, eyetrack)
 % ----------------------------------------------------------------------
-% expDes = runTrials(scr, aud, const, expDes, my_key, eyetrack)
+% expDes = runTrials(scr, const, expDes, my_key, eyetrack)
 % ----------------------------------------------------------------------
 % Goal of the function :
 % Draw stimuli of each indivual trial and waiting for inputs
 % ----------------------------------------------------------------------
 % Input(s) :
 % scr : struct containing screen configurations
-% aud : audio configurations
 % const : struct containing constant configurations
 % expDes : struct containg experimental design
 % my_key : structure containing keyboard configurations
@@ -132,14 +131,12 @@ while nbf < trial_offset
         elseif keyCode(my_key.left) && ~button_on
             expDes.expMat(expDes.t, end-1) = 1;
             button_on = GetSecs;
-            %my_sound(4, aud);
             log_txt = sprintf('trial %i event %s', expDes.t, ...
                 my_key.leftVal);
             if const.tracker; Eyelink('message','%s',log_txt); end
         elseif keyCode(my_key.right) && ~button_on
             expDes.expMat(expDes.t, end-1) = 2;
             button_on = GetSecs;
-            %my_sound(4, aud);
             log_txt = sprintf('trial %i event %s', expDes.t, ...
                 my_key.rightVal);
             if const.tracker; Eyelink('message','%s',log_txt); end
@@ -162,7 +159,6 @@ while nbf < trial_offset
         if const.tracker; Eyelink('message','%s',log_txt); end
     end
     if nbf == ext_motion_onset
-        trial_on = vbl;
         log_txt = sprintf('motion_onset %i at %f', expDes.t, vbl); 
         if const.tracker; Eyelink('message','%s',log_txt); end
     end

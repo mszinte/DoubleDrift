@@ -1,13 +1,12 @@
-function const = runExp(scr, aud, const, expDes, my_key, eyetrack)
+function const = runExp(scr, const, expDes, my_key, eyetrack)
 % ----------------------------------------------------------------------
-% const = runExp(scr, aud, const, expDes, my_key, eyetrack)
+% const = runExp(scr, const, expDes, my_key, eyetrack)
 % ----------------------------------------------------------------------
 % Goal of the function :
 % Launch experiement instructions and connection with eyetracking.
 % ----------------------------------------------------------------------
 % Input(s) :
 % scr : struct containing screen configurations
-% aud : audio configurations
 % const : struct containing constant configurations
 % expDes : struct containg experimental design
 % my_key : structure containing keyboard configurations
@@ -152,7 +151,7 @@ for t = 1:const.nb_trials
 
         % Run Trial
         if fix 
-            expDes = runTrials(scr, aud, const, expDes, my_key, eyetrack);
+            expDes = runTrials(scr, const, expDes, my_key, eyetrack);
             trialDone = 1;
         end
     end
