@@ -27,7 +27,6 @@
  
 % To do
 % -----
-% - change instruction with example direction and no gabor
 % - make behavioral and saccade analysis
 % - test naive subject
 
