@@ -17,11 +17,10 @@
 % 5 fixation offset (signal to start saccade)
 % 0.5 s of fixation with fixation check
 % 2.0 s of double drift motion in theory but switched off at saccade onset
-% 150 ms of stimulus contrast ramp
 % 1.0 s of response
 % subject move their gaze to the double drift gabor at fixation offset
 % subject report the perceived direction of external motion (cw or ccw)
-% stimulus offset when gaze out of 1.5 dva circle around bull's eye
+% stimulus offset when gaze out of 1.
 % ~2 min of training minimum (20 trials)
 % 3 runs of ~5 min (80 trials each)
  
@@ -29,6 +28,7 @@
 % -----
 % - change instruction with example direction and no gabor
 % - make behavioral and saccade analysis
+% - test again with fading increased to 150 ms (100 before) and fix check put to 1.5 dva (2 dva before)
 % - test naive subject
 
 % First settings

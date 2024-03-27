@@ -132,14 +132,14 @@ while nbf < trial_offset
         elseif keyCode(my_key.left) && ~button_on
             expDes.expMat(expDes.t, end-1) = 1;
             button_on = GetSecs;
-            my_sound(4, aud);
+            %my_sound(4, aud);
             log_txt = sprintf('trial %i event %s', expDes.t, ...
                 my_key.leftVal);
             if const.tracker; Eyelink('message','%s',log_txt); end
         elseif keyCode(my_key.right) && ~button_on
             expDes.expMat(expDes.t, end-1) = 2;
             button_on = GetSecs;
-            my_sound(4, aud);
+            %my_sound(4, aud);
             log_txt = sprintf('trial %i event %s', expDes.t, ...
                 my_key.rightVal);
             if const.tracker; Eyelink('message','%s',log_txt); end
