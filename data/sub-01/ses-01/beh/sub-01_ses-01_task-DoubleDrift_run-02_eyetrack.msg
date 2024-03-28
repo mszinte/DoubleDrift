@@ -1,4 +1,4 @@
-** CONVERTED FROM ../data/sub-01/ses-01/beh/sub-01_ses-01_task-DoubleDrift_run-02_eyetrack.edf using edfapi 4.2.1.0 Linux   standalone Jun 18 2021 on Wed Mar 27 17:44:36 2024
+** CONVERTED FROM ../data/sub-01/ses-01/beh/sub-01_ses-01_task-DoubleDrift_run-02_eyetrack.edf using edfapi 4.2.1.0 Linux   standalone Jun 18 2021 on Thu Mar 28 15:40:40 2024
 ** DATE: Mon Sep  9 03:49:35 2013
 ** TYPE: EDF_FILE BINARY EVENT SAMPLE TAGGED
 ** VERSION: EYELINK II 1

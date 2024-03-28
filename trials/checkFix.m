@@ -53,7 +53,7 @@ while ((t - tstart) < const.fix_timeout_sec && ...
     t = Screen('Flip',scr.main);
     if ~first_flip
         % write in log/edf
-        log_txt = sprintf('trial %i check fixation at %f\n', expDes.t, t);
+        log_txt = sprintf('trial %i check fixation at %f', expDes.t, t);
         if const.tracker
             Eyelink('message', '%s', log_txt);
         end

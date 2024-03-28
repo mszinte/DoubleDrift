@@ -1,4 +1,4 @@
-onset	duration	run_number	trial_number	ext_mot_pos	ext_mot_ori	ext_mot_ver_dir	direction_report	fix_off_prct	response_duration
+onset	duration	run_number	trial_number	ext_mot_pos	ext_mot_ori	ext_mot_ver_dir	fix_off_prct	direction_report	response_duration
 2552.754398	3.8327368	1	1	2	3	2	2	1	-0.5162561
 2556.595489	3.5327928	1	2	1	6	2	5	2	-0.0662892
 2560.136746	3.5577069	1	3	2	4	2	1	2	-0.5496098

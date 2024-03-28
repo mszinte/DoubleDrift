@@ -60,7 +60,7 @@ end
 ext_motion_onset = 1;
 ext_motion_offset = ext_motion_onset + const.ext_motion_dur_frm - 1;
 resp_onset = ext_motion_offset + 1;
-resp_offset = resp_onset + const.resp_dur_frm + 1;
+resp_offset = resp_onset + const.resp_dur_frm - 1;
 trial_onset = ext_motion_onset;
 trial_offset = resp_offset;
 fix_onset = trial_onset;
@@ -83,7 +83,7 @@ while nbf < trial_offset
             else
                 fix = 0;
                 first_fix_break = GetSecs;
-                log_txt = sprintf('trial %i fixation break at %s', expDes.t, first_fix_break);
+                log_txt = sprintf('trial %i fixation break at %f', expDes.t, first_fix_break);
                 if const.tracker; Eyelink('message','%s',log_txt); end
             end
         else
@@ -92,7 +92,7 @@ while nbf < trial_offset
             else
                 fix = 0;
                 first_fix_break = GetSecs;
-                log_txt = sprintf('trial %i fixation break demo at %s', expDes.t, first_fix_break);
+                log_txt = sprintf('trial %i fixation break demo at %f', expDes.t, first_fix_break);
                 if const.tracker; Eyelink('message','%s',log_txt); end
             end
         end
@@ -155,14 +155,14 @@ while nbf < trial_offset
         writeVideo(const.vid_obj,image_vid);
     end
     if nbf == trial_offset
-        log_txt = sprintf('trial %i ended\n', expDes.t);
+        log_txt = sprintf('trial %i ended', expDes.t);
         if const.tracker; Eyelink('message','%s',log_txt); end
     end
     if nbf == ext_motion_onset
         log_txt = sprintf('motion_onset %i at %f', expDes.t, vbl); 
         if const.tracker; Eyelink('message','%s',log_txt); end
     end
-    if nbf == ext_motion_onset
+    if nbf == ext_motion_offset
         log_txt = sprintf('motion_offset %i at %f', expDes.t, vbl);
         if const.tracker; Eyelink('message','%s',log_txt); end
     end
