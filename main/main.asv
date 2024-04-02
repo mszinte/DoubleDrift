@@ -52,8 +52,6 @@ const = runExp(scr, const, expDes, my_key, eyetrack);
 overDone(const, my_key);
 
 % Staircase analysis
-if const.sesNum == 1 && const.runNum == 2
-    computePerception(const, expDes);
-end
+if const.sesNum == 1 && 
 
 end

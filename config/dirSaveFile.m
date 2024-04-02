@@ -50,4 +50,8 @@ const.behav_file_fid = fopen(const.behav_file, 'w');
 % Define .mat saving file
 const.mat_file = sprintf('%s_matlab.mat', const.dat_output_file);
 
+% Staircase .mat file
+const.staircase_file = sprintf('data/%s/ses-01/%s/%s_staircase.mat',...
+    const.sjct, const.modality, const.sjct);
+
 end

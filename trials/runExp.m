@@ -175,13 +175,13 @@ for t = 1:const.nb_trials
                     end
                 end
             end
-            if expDes.expMat(t, 8) == 1 
+            if expDes.expMat(t, 8) == 1
                 expDes.expMat(t, 9) = expDes.staircase_angle1;
             elseif expDes.expMat(t, 8) == 2
                 expDes.expMat(t, 9) = expDes.staircase_angle2;
             end
         else
-            expDes.expMat(t, 9) = 45;
+            expDes.expMat(t, 9) = const.staircase_avg;
         end
 
         % Run Trial
@@ -227,7 +227,7 @@ for tab = 1:size(behav_txt_head,2)
         head_line = [head_line, sprintf('%s\t', behav_txt_head{tab})];
     end
 end
-fprintf(const.behav_file_fid,'%s\n', head_line);
+fprintf(const.behav_file_fid, '%s\n', head_line);
 
 for trial = 1:const.nb_trials
     trial_line = [];
@@ -248,11 +248,11 @@ for trial = 1:const.nb_trials
             end
         end
     end
-    fprintf(const.behav_file_fid,'%s\n',trial_line);
+    fprintf(const.behav_file_fid, '%s\n', trial_line);
 end
 
 % End messages
-instructionsIm(scr,const,my_key,'End',1); 
+instructionsIm(scr, const, my_key, 'End',1); 
 
 % Save all config at the end of the block (overwrite start made at start)
 config.scr = scr; 
@@ -264,7 +264,7 @@ save(const.mat_file, 'config');
 
 % Stop Eyetracking
 if const.tracker
-    Eyelink('command','clear_screen');
+    Eyelink('command', 'clear_screen');
     Eyelink('command', 'record_status_message ''END''');
     WaitSecs(1);
     Eyelink('stoprecording');

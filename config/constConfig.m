@@ -42,13 +42,19 @@ const.gaborSizeVal = 3.0;                                                   % fu
 const.gaborFrequency = 2;                                                   % gabor spatial frequecny
 const.gaborPeriod = const.gaborFrequency/const.ppd;                         % period per pixel
 const.freq = const.ppd/const.gaborFrequency;                   
-const.gaborSigmaVal = 0.15;                                                  % gaussian envelope in dva
+const.gaborSigmaVal = 0.15;                                                 % gaussian envelope in dva
 [const.gaborSigma, ~] = vaDeg2pix(const.gaborSigmaVal, scr);                % gaussian envelope in pixels
 
 const.staircases = [1, 2];                                                  % staircase number
-const.staircases_start = [20,80];                                          % staircase starting angle
+const.staircases_start = [15, 65];                                          % staircase starting angle
 const.staircase_step_angle = 5;                                             % staircase step angle
 const.staircase_txt = {'1st', '2nd'};                                       % staircase number text
+
+% load staircase value
+if const.sesNum == 2
+    load(const.staircase_file);
+    const.staircase_avg = staircase.staircase_angle_avg;
+end
 
 const.main_task = [1, 2];                                                   % main task values
 const.main_task_txt = {'Perception', 'Saccade'};                            % main tasks
@@ -64,8 +70,6 @@ const.fix_off_time_prct = linspace(.2, .6, const.fix_off_step);             % fi
 const.fix_off_time_prct_num = linspace(1, const.fix_off_step, ...           % number for design matrix
     const.fix_off_step);
 const.fix_off_time_prct_txt = {'20%', '30%', '40%', '50%', '60%'};
-
-
 
 % Time parameters
 const.ext_motion_dur_sec = const.gabor_pathVal / const.ext_motion_speedVal; % external motion duration in seconds
