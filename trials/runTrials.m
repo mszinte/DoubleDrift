@@ -45,13 +45,13 @@ gabor_ctrs = [ctr_ext_motion(1) + amp_from_ctr * cosd(ext_motion_ori+90);...
 
 % compute phase
 if rand2 == 1 % downward
-    if ext_motion_ori > 0
+    if ext_motion_ori >= 0
         gabor_phases = const.phase_left;
     elseif ext_motion_ori < 0
         gabor_phases = const.phase_right;
     end
 elseif rand2 == 2 % upward
-    if ext_motion_ori > 0
+    if ext_motion_ori >= 0
         gabor_phases = const.phase_right;
     elseif ext_motion_ori < 0
         gabor_phases = const.phase_left;
