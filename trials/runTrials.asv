@@ -44,7 +44,7 @@ gabor_ctrs = [ctr_ext_motion(1) + amp_from_ctr * cosd(ext_motion_ori+90);...
               ctr_ext_motion(2) + amp_from_ctr * -sind(ext_motion_ori+90)];
 
 % compute phase
-if rand2 == 1 % downward
+if rand2 == 2 % downward
     if ext_motion_ori > 0
         gabor_phases = const.phase_left;
     elseif ext_motion_ori < 0
@@ -75,7 +75,7 @@ if const.checkTrial && const.expStart == 0
         if ~isnan(rand3); fprintf(1,'\n\tFixation offset motion percentage =\t%s', ...
                 const.fix_off_time_prct_txt{rand3}); end
     end
-    if ~isnan(ext_motion_ori); fprintf(1,'\n\tExt. motion orientation =\t\t%1.0f deg\n', ...
+    if ~isnan(ext_motion_ori); fprintf(1,'\n\tExt. motion orientation =\t\t%1.0f\n deg', ...
             ext_motion_ori); end
     
 end

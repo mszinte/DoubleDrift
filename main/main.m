@@ -22,9 +22,6 @@ const = dirSaveFile(const);
 % Screen configurations
 scr = scrConfig(const);
 
-% Audio configurations
-aud = audioConfig;
-
 % Triggers and button configurations
 my_key = keyConfig;
 

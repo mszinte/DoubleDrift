@@ -46,12 +46,7 @@ const.gaborSigmaVal = 0.15;                                                  % g
 [const.gaborSigma, ~] = vaDeg2pix(const.gaborSigmaVal, scr);                % gaussian envelope in pixels
 
 const.staircases = [1, 2];                                                  % staircase number
-const.staircases_start = [60,-60];                                          % staircase starting angle
-const.staircase_step_angle = 5;                                             % staircase step angle
-const.staircase_txt = {'1st', '2nd'};                                       % staircase number text
-
-const.main_task = [1, 2];                                                   % main task values
-const.main_task_txt = {'Perception', 'Saccade'};                            % main tasks
+const.staircases_start = [-75, 75];                                          
 
 const.stim_position = [1, 2];                                               % position of the stimulus on the screen (1: left; 2: right)
 const.stim_position_txt = {'left', 'right'};                                
@@ -65,7 +60,37 @@ const.fix_off_time_prct_num = linspace(1, const.fix_off_step, ...           % nu
     const.fix_off_step);
 const.fix_off_time_prct_txt = {'20%', '30%', '40%', '50%', '60%'};
 
-
+% compute external motion center point
+ext_motion_ori_num = 0;
+for ext_motion_ori = const.ext_motion_ori
+    ext_motion_ori_num = ext_motion_ori_num +1;
+    for stim_position = const.stim_position
+        if stim_position == 1 
+            % left side
+            ctr_ext_motion = [scr.x_mid - const.ecc, scr.y_mid];
+        elseif stim_position == 2
+            % right side
+            ctr_ext_motion = [scr.x_mid + const.ecc, scr.y_mid];
+        end
+        for ext_motion_ver_dir = const.ext_motion_ver_dir
+            if ext_motion_ver_dir == 1
+                % downward motion
+                amp_from_ctr = linspace(const.gabor_path/2, ...
+                    -const.gabor_path/2, const.ext_motion_steps);
+            elseif ext_motion_ver_dir == 2
+                % upward motion
+                amp_from_ctr = linspace(-const.gabor_path/2, ...
+                    const.gabor_path/2, const.ext_motion_steps);
+            end
+            
+            const.ext_motion_ctr{ext_motion_ori_num, stim_position,...
+                ext_motion_ver_dir} = ...
+                [ctr_ext_motion(1) + amp_from_ctr * cosd(ext_motion_ori+90);...
+                 ctr_ext_motion(2) + amp_from_ctr * -sind(ext_motion_ori+90)];
+            
+        end
+    end
+end
 
 % Time parameters
 const.ext_motion_dur_sec = const.gabor_pathVal / const.ext_motion_speedVal; % external motion duration in seconds
@@ -92,10 +117,17 @@ const.sac_lat_dur_frm = round(const.sac_lat_dur_sec / ...                   % th
     scr.frame_duration);
 
 % Trial settings
-if const.mkVideo
+ if const.mkVideo
+    const.nb_repeat = 1;                                                    % Trial repetition in video mode
     const.nb_trials = 1;                                                    % Number of trials in video mode
-else
-    const.nb_trials = 100;                                                  % Number of trials in video mode
+ else
+    if const.training
+        const.nb_repeat = 1;
+    else
+        const.nb_repeat = 4;
+    end
+    const.nb_trials = length(const.ext_motion_ori) * ...                    % number of trials
+        length(const.stim_position) * const.nb_repeat;
 end
 
 % Bullseye configs

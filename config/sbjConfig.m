@@ -67,9 +67,11 @@ else
     const.recEye = 1;
 end
 
-% training
-if const.training
-    const.task = sprintf('%sTraining',const.task);
+% Sub task selection
+if const.sesNum == 1
+    const.task = sprintf('%sPerception',const.task);
+elseif const.sesNum == 2
+    const.task = sprintf('%sSaccade',const.task);
 end
 
 end

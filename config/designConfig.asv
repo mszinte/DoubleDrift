@@ -38,7 +38,7 @@ end
 % 1: left
 % 2: right
 
-% Rand 2: external motion vertical direction
+% Rand 2: Ext. motion vertical direction
 if const.mkVideo
     expDes.twoR = input(sprintf(...
         '\n\tRAND 2: motion direction (1: downward; 2: upward): '));
@@ -57,7 +57,7 @@ if const.sesNum == 1
 elseif const.sesNum == 2
     if const.mkVideo
         expDes.threeR = input(sprintf(...
-            '\n\tRAND 3: fixation offset time percentage (1: 20%%; 2: 30%%; 3: 40%%; 4: 50%%; 5: 60%%): '));
+            '\n\tRAND 2: fixation offset time percentage (1: 20%%; 2: 30%%; 3: 40%%; 4: 50%%; 5: 60%%): '));
         expDes.nb_rand3 = 1;
     else
         expDes.threeR = const.fix_off_time_prct_num';
@@ -81,26 +81,25 @@ for t_trial = 1:const.nb_trials
     rand_rand1 = expDes.oneR(randVal1(1));
     rand_rand2 = expDes.twoR(randVal2(1));
     rand_rand3 = expDes.threeR(randVal3(1));
-    trialMat(t_trial, 1) = expDes.oneC;
-    trialMat(t_trial, 2) = rand_rand1;
-    trialMat(t_trial, 3) = rand_rand2;
-    trialMat(t_trial, 4) = rand_rand3;
+    trialMat(t_trial, 4) = rand_rand1;
+    trialMat(t_trial, 5) = rand_rand2;
+    trialMat(t_trial, 6) = rand_rand3;
 end
 
 expDes.expMat = [zeros(const.nb_trials,2)*nan, ...
                  zeros(const.nb_trials,1)*0+const.runNum,...
                 [1:const.nb_trials]',...
                 trialMat,...
-                zeros(const.nb_trials,3)*nan];
+                zeros(const.nb_trials,2)*nan];
 
 % 01: onset
 % 02: duration
 % 03: run number
 % 04: trial number
 % 05: task
-% 06: rand1 external motion screen position
-% 07: rand2 external motion vertical direction
-% 08: rand3 staircase number or fixation offset time percent 
+% 06: external motion screen position
+% 07: external motion vertical direction
+% 08: staircase number or fixation offset time percent 
 % 09: external motion orientation
 % 10: direction report
 % 11: response duration

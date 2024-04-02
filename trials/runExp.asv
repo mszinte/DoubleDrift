@@ -175,13 +175,7 @@ for t = 1:const.nb_trials
                     end
                 end
             end
-            if expDes.expMat(t, 8) == 1 
-                expDes.expMat(t, 9) = expDes.staircase_angle1;
-            elseif expDes.expMat(t, 8) == 2
-                expDes.expMat(t, 9) = expDes.staircase_angle2;
-            end
-        else
-            expDes.expMat(t, 9) = 45;
+            expDes.expMat =
         end
 
         % Run Trial
