@@ -53,7 +53,7 @@ overDone(const, my_key);
 
 % Staircase analysis
 if const.sesNum == 1 && const.runNum == 2
-    computePerception(const, expDes);
+    computePerception(const);
 end
 
 end
