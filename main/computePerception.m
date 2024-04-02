@@ -14,13 +14,15 @@ function computePerception(const)
 % Function created by Martin SZINTE (martin.szinte@gmail.com)
 % ----------------------------------------------------------------------
 close all
-run1_fn = sprintf('data/%s/ses-01/%s/%s_ses-01_task-DoubleDriftPerception_run-01_events.tsv',...
+run1_fn = sprintf('data/%s/ses-01/%s/%s_ses-01_task-DoubleDriftPerception_run-01_matlab.mat',...
     const.sjct, const.modality, const.sjct);
-run2_fn = sprintf('data/%s/ses-01/%s/%s_ses-01_task-DoubleDriftPerception_run-02_events.tsv',...
-    const.sjct, const.modality, const.sjct);
+load(run1_fn);
+run1_mat = config.expDes.expMat;
 
-run1_mat = table2array(readtable(run1_fn, "FileType", "text", 'Delimiter', '\t'));
-run2_mat = table2array(readtable(run2_fn, "FileType", "text", 'Delimiter', '\t'));
+run2_fn = sprintf('data/%s/ses-01/%s/%s_ses-01_task-DoubleDriftPerception_run-02_matlab.mat',...
+    const.sjct, const.modality, const.sjct);
+load(run2_fn);
+run2_mat = config.expDes.expMat;
 
 figure;
 staircase1_run1_angle = run1_mat(run1_mat(:,8)==1, 9);
