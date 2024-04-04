@@ -62,7 +62,7 @@ end
 if const.sesNum == 2
     if rand5 == 1
         rand_idx = randperm(length(gabor_phases));
-        gabor_phases = gabor_phases * 0 + gabor_phases(rand_idx);
+        gabor_phases = gabor_phases * 0 + gabor_phases(rand_idx(1));
     end
 end
 

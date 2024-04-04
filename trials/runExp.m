@@ -151,40 +151,46 @@ for t = 1:const.nb_trials
         end
 
         % staircase computation
+        staircase_col = 8;
+        ext_mot_ori_col = 11;
+        dir_report_col = 12;
         if const.sesNum == 1
             if t == 1
                 expDes.staircase_angle1 = const.staircases_start(1);
                 expDes.staircase_angle2 = const.staircases_start(2);
             else
                 % 1st staircase
-                if expDes.expMat(t-1, 8) == 1 
-                    if expDes.expMat(t-1, 10) == 1
+                if expDes.expMat(t-1, staircase_col) == 1 
+                    if expDes.expMat(t-1, dir_report_col) == 1
                         expDes.staircase_angle1 = expDes.staircase_angle1 - ...
                             const.staircase_step_angle;
-                    elseif expDes.expMat(t-1, 10) == 2
+                    elseif expDes.expMat(t-1, dir_report_col) == 2
                         expDes.staircase_angle1 = expDes.staircase_angle1 + ...
                             const.staircase_step_angle;
                     end
                 % 2nd staircase
-                elseif expDes.expMat(t-1, 8) == 2
-                    if expDes.expMat(t-1, 10) == 1
+                elseif expDes.expMat(t-1, staircase_col) == 2
+                    if expDes.expMat(t-1, dir_report_col) == 1
                         expDes.staircase_angle2 = expDes.staircase_angle2 - ...
                             const.staircase_step_angle;
-                    elseif expDes.expMat(t-1, 10) == 2
+                    elseif expDes.expMat(t-1, dir_report_col) == 2
                         expDes.staircase_angle2 = expDes.staircase_angle2 + ...
                             const.staircase_step_angle;
                     end
                 end
             end
-            if expDes.expMat(t, 8) == 1
-                expDes.expMat(t, 9) = expDes.staircase_angle1;
-            elseif expDes.expMat(t, 8) == 2
-                expDes.expMat(t, 9) = expDes.staircase_angle2;
+            if expDes.expMat(t, staircase_col) == 1
+                expDes.expMat(t, ext_mot_ori_col) = expDes.staircase_angle1;
+            elseif expDes.expMat(t, staircase_col) == 2
+                expDes.expMat(t, ext_mot_ori_col) = expDes.staircase_angle2;
             end
         else
-            expDes.expMat(t, 9) = const.staircase_avg;
+            expDes.expMat(t, ext_mot_ori_col) = const.staircase_avg;
         end
-
+        
+        if const.mkVideo
+            expDes.expMat(t, ext_mot_ori_col) = 40;
+        end
         % Run Trial
         if fix 
             expDes = runTrials(scr, const, expDes, my_key, eyetrack);

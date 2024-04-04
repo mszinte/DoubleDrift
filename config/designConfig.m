@@ -16,12 +16,18 @@ function expDes = designConfig(const)
 
 % Experimental variables
 % Cond 1: Task
-if const.sesNum == 1
-    expDes.oneC = 1;
+if const.mkVideo
+    expDes.oneC = input(sprintf(...
+        '\n\tCond 1: task (1: perception; 2: saccade): '));
     expDes.nb_cond1 = 1;
-elseif const.sesNum == 2
-    expDes.oneC = 2;
-    expDes.nb_cond1 = 1;
+else
+    if const.sesNum == 1
+        expDes.oneC = 1;
+        expDes.nb_cond1 = 1;
+    elseif const.sesNum == 2
+        expDes.oneC = 2;
+        expDes.nb_cond1 = 1;
+    end
 end
 % 01: perception task
 % 02: saccade task
@@ -98,6 +104,7 @@ expDes.nb_rand = 5;
 trialMat = zeros(const.nb_trials, expDes.nb_cond + expDes.nb_var + expDes.nb_rand)*nan;
 
 for t_trial = 1:const.nb_trials
+    
     randVal1 = randperm(numel(expDes.oneR));
     randVal2 = randperm(numel(expDes.twoR));
     randVal3 = randperm(numel(expDes.threeR));

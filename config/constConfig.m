@@ -46,7 +46,7 @@ const.gaborSigmaVal = 0.15;                                                 % ga
 [const.gaborSigma, ~] = vaDeg2pix(const.gaborSigmaVal, scr);                % gaussian envelope in pixels
 
 const.staircases = [1, 2];                                                  % staircase number
-const.staircases_start = [-15, -65];                                        % staircase starting angle
+const.staircases_start = [15, 65];                                          % staircase starting angle
 const.staircase_step_angle = 5;                                             % staircase step angle
 const.staircase_txt = {'1st', '2nd'};                                       % staircase number text
 
