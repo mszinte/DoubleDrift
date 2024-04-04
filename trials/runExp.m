@@ -20,8 +20,9 @@ function const = runExp(scr, const, expDes, my_key, eyetrack)
 
 % Configuration of videos
 if const.mkVideo
-    const.vid_folder = sprintf('others/movie/%s_c1-%i_r1-%i_r2-%i_r3-%i', ...
-        const.task, expDes.oneC, expDes.oneR, expDes.twoR, expDes.threeR);
+    const.vid_folder = sprintf('others/movie/%s_c1-%i_r1-%i_r2-%i_r3-%i_r4-%i_r5-%i', ...
+        const.task, expDes.oneC, expDes.oneR, expDes.twoR, expDes.threeR, ...
+        expDes.fourR, expDes.fiveR);
     if ~isfolder(const.vid_folder); mkdir(const.vid_folder); end
     const.movie_image_file = sprintf('%s/img', const.vid_folder);
     const.movie_file = sprintf('%s.mp4', const.vid_folder);
@@ -193,26 +194,24 @@ for t = 1:const.nb_trials
 end
 
 % tsv file
-if const.sesNum == 1
-    head_txt = {'onset', 'duration', 'run_number', 'trial_number', ...
-                'task', 'ext_mot_pos', 'ext_mot_ver_dir', 'staircase_num', ...
-                'exp_mot_ori', 'direction_report', 'response_duration'};
-elseif const.sesNum == 2
-    head_txt = {'onset', 'duration', 'run_number', 'trial_number', ...
-                'task', 'ext_mot_pos', 'ext_mot_ver_dir', 'fix_off_prct', ...
-                'exp_mot_ori', 'direction_report', 'response_duration'};
-end
+head_txt = {'onset', 'duration', 'run_number', 'trial_number', ...
+            'task', 'ext_mot_pos', 'ext_mot_ver_dir', 'staircase_num', ...
+            'fix_off_prct', 'trial_type', 'exp_mot_ori', 'direction_report', ...
+            'response_duration'};
 % 01: onset
 % 02: duration
 % 03: run number
 % 04: trial number
 % 05: task
-% 06: external motion screen position
-% 07: external motion vertical direction
-% 08: staircase number or fixation offset time percent 
-% 09: external motion orientation
-% 10: direction report
-% 11: response duration
+% 06: rand1 external motion screen position
+% 07: rand2 external motion vertical direction
+% 08: rand3 staircase number
+% 09: fixation offset time percent 
+% 10: trial type
+% 11: external motion orientation
+% 12: direction report
+% 13: response duration
+
 for head_num = 1:length(head_txt)
     behav_txt_head{head_num} = head_txt{head_num};
     behav_mat_res{head_num} = expDes.expMat(:,head_num);

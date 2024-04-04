@@ -24,19 +24,23 @@ run2_fn = sprintf('data/%s/ses-01/%s/%s_ses-01_task-DoubleDriftPerception_run-02
 load(run2_fn);
 run2_mat = config.expDes.expMat;
 
+staircase_col = 8;
+trial_num_col = 4;
+ext_mot_ori_col = 11;
+
 figure;
-staircase1_run1_angle = run1_mat(run1_mat(:,8)==1, 9);
-staircase1_run1_trial = run1_mat(run1_mat(:,8)==1, 4);
+staircase1_run1_angle = run1_mat(run1_mat(:,staircase_col)==1, ext_mot_ori_col);
+staircase1_run1_trial = run1_mat(run1_mat(:,staircase_col)==1, trial_num_col);
 staircase1_run1_angle_avg = mean(staircase1_run1_angle(end-25:end), 'omitnan');
-staircase2_run1_angle = run1_mat(run1_mat(:,8)==2, 9);
-staircase2_run1_trial = run1_mat(run1_mat(:,8)==2, 4);
+staircase2_run1_angle = run1_mat(run1_mat(:,staircase_col)==2, ext_mot_ori_col);
+staircase2_run1_trial = run1_mat(run1_mat(:,staircase_col)==2, trial_num_col);
 staircase2_run1_angle_avg = mean(staircase2_run1_angle(end-25:end), 'omitnan');
 
-staircase1_run2_angle = run2_mat(run2_mat(:,8)==1, 9);
-staircase1_run2_trial = run2_mat(run2_mat(:,8)==1, 4);
+staircase1_run2_angle = run2_mat(run2_mat(:,staircase_col)==1, ext_mot_ori_col);
+staircase1_run2_trial = run2_mat(run2_mat(:,staircase_col)==1, trial_num_col);
 staircase1_run2_angle_avg = mean(staircase1_run2_angle(end-25:end), 'omitnan');
-staircase2_run2_angle = run2_mat(run2_mat(:,8)==2, 9);
-staircase2_run2_trial = run2_mat(run2_mat(:,8)==2, 4);
+staircase2_run2_angle = run2_mat(run2_mat(:,staircase_col)==2, ext_mot_ori_col);
+staircase2_run2_trial = run2_mat(run2_mat(:,staircase_col)==2, trial_num_col);
 staircase2_run2_angle_avg = mean(staircase2_run2_angle(end-25:end), 'omitnan');
 
 staircase_angle_avg = mean([staircase1_run1_angle_avg, ...

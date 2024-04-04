@@ -22,8 +22,10 @@ function expDes = runTrials(scr, const, expDes, my_key, eyetrack)
 cond1 = expDes.expMat(expDes.t, 5); % task
 rand1 = expDes.expMat(expDes.t, 6); % external motion screen position
 rand2 = expDes.expMat(expDes.t, 7); % external motion vertical direction
-rand3 = expDes.expMat(expDes.t, 8); % staircase or fix offset prct
-ext_motion_ori = expDes.expMat(expDes.t, 9);
+rand3 = expDes.expMat(expDes.t, 8); % staircase 
+rand4 = expDes.expMat(expDes.t, 9); % fix offset prct
+rand5 = expDes.expMat(expDes.t, 10); % trial type
+ext_motion_ori = expDes.expMat(expDes.t, 11);
 gabor_angle = ext_motion_ori;
 
 % compute external motion center point
@@ -57,6 +59,12 @@ elseif rand2 == 2 % upward
         gabor_phases = const.phase_left;
     end
 end
+if const.sesNum == 2
+    if rand5 == 1
+        rand_idx = randperm(length(gabor_phases));
+        gabor_phases = gabor_phases * 0 + gabor_phases(rand_idx);
+    end
+end
 
 % Check trial
 if const.checkTrial && const.expStart == 0
@@ -72,8 +80,10 @@ if const.checkTrial && const.expStart == 0
         if ~isnan(rand3); fprintf(1,'\n\tStaircase=\t\t\t\t%s', ...
                 const.staircase_txt{rand3}); end
     elseif const.sesNum == 2
-        if ~isnan(rand3); fprintf(1,'\n\tFixation offset motion percentage =\t%s', ...
-                const.fix_off_time_prct_txt{rand3}); end
+        if ~isnan(rand4); fprintf(1,'\n\tFixation offset motion percentage =\t%s', ...
+                const.fix_off_time_prct_txt{rand4}); end
+        if ~isnan(rand5); fprintf(1,'\n\tTrial type =\t\t\t\t%s', ...
+                const.trial_type_txt{rand5}); end
     end
     if ~isnan(ext_motion_ori); fprintf(1,'\n\tExt. motion orientation =\t\t%1.0f deg\n', ...
             ext_motion_ori); end
@@ -92,7 +102,7 @@ if const.sesNum == 1
     fix_offset = trial_offset;
     saccade_onset = trial_offset;
 elseif const.sesNum == 2
-    fix_offset = const.fix_off_frm(rand3);
+    fix_offset = const.fix_off_frm(rand4);
     saccade_onset = fix_offset + const.sac_lat_dur_frm;
 end
 

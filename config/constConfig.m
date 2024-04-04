@@ -71,6 +71,9 @@ const.fix_off_time_prct_num = linspace(1, const.fix_off_step, ...           % nu
     const.fix_off_step);
 const.fix_off_time_prct_txt = {'20%', '30%', '40%', '50%', '60%'};
 
+const.trial_type = [1, 2];                                                  % trial type (1: control; 2: internal motion trial)
+const.trial_type_txt = {'control', 'internal motion'};                      
+
 % Time parameters
 const.ext_motion_dur_sec = const.gabor_pathVal / const.ext_motion_speedVal; % external motion duration in seconds
 const.ext_motion_dur_frm = round(const.ext_motion_dur_sec / ...             % external motion duration in in frames
