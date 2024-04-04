@@ -1,4 +1,4 @@
-onset	duration	run_number	trial_number	task	ext_mot_pos	ext_mot_ver_dir	staircase_num	fix_off_prct	trial_type	exp_mot_ori	direction_report	response_duration
+onset	duration	run_number	trial_number	task	ext_mot_pos	ext_mot_ver_dir	staircase_num	fix_off_prct	trial_type	ext_mot_ori	direction_report	response_duration
 6596.940144	3.7578513	2	1	1	2	1	1	3	2	15	2	0.3337043
 6600.70633	3.5079066	2	2	1	2	1	2	4	1	65	1	0.4752736
 6604.222554	3.5079253	2	3	1	1	2	1	5	1	20	2	0.4087105
