@@ -28,7 +28,7 @@ if const.mkVideo
     const.movie_file = sprintf('%s.mp4', const.vid_folder);
     expDes.vid_num = 0;
     const.vid_obj = VideoWriter(const.movie_file, 'MPEG-4');
-    const.vid_obj.FrameRate = 120;
+    const.vid_obj.FrameRate = scr.hz; 
 	const.vid_obj.Quality = 100;
 end
 
@@ -162,19 +162,19 @@ for t = 1:const.nb_trials
                 % 1st staircase
                 if expDes.expMat(t-1, staircase_col) == 1 
                     if expDes.expMat(t-1, dir_report_col) == 1
-                        expDes.staircase_angle1 = expDes.staircase_angle1 - ...
+                        expDes.staircase_angle1 = expDes.staircase_angle1 + ...
                             const.staircase_step_angle;
                     elseif expDes.expMat(t-1, dir_report_col) == 2
-                        expDes.staircase_angle1 = expDes.staircase_angle1 + ...
+                        expDes.staircase_angle1 = expDes.staircase_angle1 - ...
                             const.staircase_step_angle;
                     end
                 % 2nd staircase
                 elseif expDes.expMat(t-1, staircase_col) == 2
                     if expDes.expMat(t-1, dir_report_col) == 1
-                        expDes.staircase_angle2 = expDes.staircase_angle2 - ...
+                        expDes.staircase_angle2 = expDes.staircase_angle2 + ...
                             const.staircase_step_angle;
                     elseif expDes.expMat(t-1, dir_report_col) == 2
-                        expDes.staircase_angle2 = expDes.staircase_angle2 + ...
+                        expDes.staircase_angle2 = expDes.staircase_angle2 - ...
                             const.staircase_step_angle;
                     end
                 end

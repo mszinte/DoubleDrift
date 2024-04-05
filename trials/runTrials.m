@@ -26,7 +26,7 @@ rand3 = expDes.expMat(expDes.t, 8); % staircase
 rand4 = expDes.expMat(expDes.t, 9); % fix offset prct
 rand5 = expDes.expMat(expDes.t, 10); % trial type
 ext_motion_ori = expDes.expMat(expDes.t, 11);
-gabor_angle = ext_motion_ori;
+gabor_angle = -ext_motion_ori;
 
 % compute external motion center point
 if rand1 == 1 % left side
@@ -42,24 +42,24 @@ elseif rand2 == 2 % upward motion
     amp_from_ctr = linspace(-const.gabor_path/2, ...
         const.gabor_path/2, const.ext_motion_steps);
 end
-gabor_ctrs = [ctr_ext_motion(1) + amp_from_ctr * cosd(ext_motion_ori+90);...
-              ctr_ext_motion(2) + amp_from_ctr * -sind(ext_motion_ori+90)];
+gabor_ctrs = [ctr_ext_motion(1) + amp_from_ctr * cosd(ext_motion_ori-90);...
+              ctr_ext_motion(2) + amp_from_ctr * sind(ext_motion_ori-90)];
 
 % compute phase
 if rand2 == 1 % downward
     if ext_motion_ori >= 0
-        gabor_phases = const.phase_left;
-    elseif ext_motion_ori < 0
         gabor_phases = const.phase_right;
+    elseif ext_motion_ori < 0
+        gabor_phases = const.phase_left;
     end
 elseif rand2 == 2 % upward
     if ext_motion_ori >= 0
-        gabor_phases = const.phase_right;
-    elseif ext_motion_ori < 0
         gabor_phases = const.phase_left;
+    elseif ext_motion_ori < 0
+        gabor_phases = const.phase_right;
     end
 end
-if const.sesNum == 2
+if cond1 == 2
     if rand5 == 1
         rand_idx = randperm(length(gabor_phases));
         gabor_phases = gabor_phases * 0 + gabor_phases(rand_idx(1));
@@ -76,10 +76,10 @@ if const.checkTrial && const.expStart == 0
             const.stim_position_txt{rand1}); end
     if ~isnan(rand2); fprintf(1,'\n\tExt. motion vertical direction =\t%s', ...
             const.ext_motion_ver_dir_txt{rand2}); end
-    if const.sesNum == 1
+    if cond1 == 1
         if ~isnan(rand3); fprintf(1,'\n\tStaircase=\t\t\t\t%s', ...
                 const.staircase_txt{rand3}); end
-    elseif const.sesNum == 2
+    elseif cond1 == 2
         if ~isnan(rand4); fprintf(1,'\n\tFixation offset motion percentage =\t%s', ...
                 const.fix_off_time_prct_txt{rand4}); end
         if ~isnan(rand5); fprintf(1,'\n\tTrial type =\t\t\t\t%s', ...
@@ -98,10 +98,10 @@ resp_offset = resp_onset + const.resp_dur_frm - 1;
 trial_onset = ext_motion_onset;
 trial_offset = resp_offset;
 fix_onset = trial_onset;
-if const.sesNum == 1
+if cond1 == 1
     fix_offset = trial_offset;
     saccade_onset = trial_offset;
-elseif const.sesNum == 2
+elseif cond1 == 2
     fix_offset = const.fix_off_frm(rand4);
     saccade_onset = fix_offset + const.sac_lat_dur_frm;
 end
@@ -114,9 +114,9 @@ first_fix_break = 0;
 while nbf < trial_offset
     
     % Check for eye position
-    if const.sesNum == 1
+    if cond1 == 1
         fix = 1;
-    elseif const.sesNum == 2
+    elseif cond1 == 2
         if ~first_fix_break
             if const.tracker
                 [x_eye, y_eye] = getCoord(eyetrack);

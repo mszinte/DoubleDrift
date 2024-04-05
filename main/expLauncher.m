@@ -26,13 +26,7 @@
 % stimulus offset when gaze out of 1.5 dva circle around bull's eye
 
 % 2 runs of ~6 min (100 trials each) in session 1
-% 2 runs of ~6 min (100 trials each) in session 2
- 
-% To do
-% -----
-% - make behavioral and saccade analysis
-% - test naive subject
-% - do demo video
+% 2 runs of ~6 min (100 trials each) in session 2 
 
 % First settings
 Screen('CloseAll'); clear all; clear mex; clear functions; close all; ...
@@ -40,16 +34,16 @@ Screen('CloseAll'); clear all; clear mex; clear functions; close all; ...
 
 % General settings
 const.expName = 'DoubleDrift';          % experiment name
-const.expStart = 1;                     % Start of a recording (0 = NO, 1 = YES)
+const.expStart = 0;                     % Start of a recording (0 = NO, 1 = YES)
 const.checkTrial = 0;                   % Print trial conditions (0 = NO, 1 = YES)
-const.mkVideo = 0;                      % Make a video (0 = NO, 1 = YES)
+const.mkVideo = 1;                      % Make a video (0 = NO, 1 = YES)
 
 % External controls
-const.tracker = 1;                      % run with eye tracker (0 = NO, 1 = YES)
+const.tracker = 0;                      % run with eye tracker (0 = NO, 1 = YES)
 const.display = 1;                      % diplay (1 = Display++; 2 = MacBookPro)
 
 % Desired screen settings
-const.desiredFD = 120;                  % Desired refresh rate
+const.desiredFD = 30;                  % Desired refresh rate
 const.desiredRes = [1920, 1080];        % Desired resolution
 
 % Path
