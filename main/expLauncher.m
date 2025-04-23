@@ -5,9 +5,9 @@
 
 % Description
 % ----------- 
-% Adaptation of experiment 1 (perception) of Lisa & Cavanagh, 2015, 
+% Adaptation of experiment 1 (perception) of Lisi & Cavanagh, 2015, 
 % Current Biology (http://dx.doi.org/10.1016/j.cub.2015.08.021)
-% for the AMU Neuroscience Master APP 2024 courses.
+% for the AMU Neuroscience Master APP 2025 courses.
 
 % Details
 % -------
@@ -19,9 +19,9 @@
 % 2.0 s of double drift motion in theory but switched off at saccade onset
 % 150 ms of stimulus contrast ramp
 % 1.0 s of response
-% In session 1 participant judge the orientation of the external motion (cw or ccw)
+% In session 1 participants judge the orientation of the external motion (cw or ccw)
 % 2 staircases with different angles of external motion are played
-% In session 2 participant make saccadic eye movement to the external
+% In session 2 participants make saccadic eye movement to the external
 % motion played with the convergent PSE angle
 % stimulus offset when gaze out of 1.5 dva circle around bull's eye
 
@@ -39,11 +39,12 @@ const.checkTrial = 0;                   % Print trial conditions (0 = NO, 1 = YE
 const.mkVideo = 0;                      % Make a video (0 = NO, 1 = YES)
 
 % External controls
-const.tracker = 1;                      % run with eye tracker (0 = NO, 1 = YES)
+const.tracker = 0;                      % run with eye tracker (0 = NO, 1 = YES)
 const.display = 1;                      % diplay (1 = Display++; 2 = MacBookPro)
 
 % Desired screen settings
-const.desiredFD = 120;                  % Desired refresh rate
+const.desiredFD = 30;                   % Desired refresh rate
+fprintf(1, 'change FD')
 const.desiredRes = [1920, 1080];        % Desired resolution
 
 % Path
