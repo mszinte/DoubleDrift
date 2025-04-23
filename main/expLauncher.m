@@ -39,12 +39,11 @@ const.checkTrial = 0;                   % Print trial conditions (0 = NO, 1 = YE
 const.mkVideo = 0;                      % Make a video (0 = NO, 1 = YES)
 
 % External controls
-const.tracker = 0;                      % run with eye tracker (0 = NO, 1 = YES)
+const.tracker = 1;                      % run with eye tracker (0 = NO, 1 = YES)
 const.display = 1;                      % diplay (1 = Display++; 2 = MacBookPro)
 
 % Desired screen settings
-const.desiredFD = 30;                   % Desired refresh rate
-fprintf(1, 'change FD')
+const.desiredFD = 120;                  % Desired refresh rate
 const.desiredRes = [1920, 1080];        % Desired resolution
 
 % Path
